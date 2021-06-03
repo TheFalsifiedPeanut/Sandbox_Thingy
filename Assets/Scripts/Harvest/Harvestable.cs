@@ -25,8 +25,10 @@ public class Harvestable : MonoBehaviour
 [SerializeField] protected HarvestingTool harvestingTool;
 [SerializeField] protected HarvestingLevel harvestingLevel;
 [SerializeField] protected float harvestDurability;
+[SerializeField] protected GameObject droppedHarvestable;
 
-public HarvestingTool GetHarvestingTool() {
+
+    public HarvestingTool GetHarvestingTool() {
     return harvestingTool;
 }
 public HarvestingLevel GetHarvestingLevel() {
@@ -50,7 +52,10 @@ public float GetHarvestingDurability() {
 
     public virtual void OnHarvest()
     {
-
+        Harvested();
     }
-
+    protected virtual void Harvested()
+    {
+        Destroy(gameObject);
+    }
 }

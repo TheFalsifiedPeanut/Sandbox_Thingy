@@ -2,13 +2,9 @@
     using System.Collections.Generic;
     using UnityEngine;
 
-public class Tree : Harvestable
+public class Tree : LogHarvest
 {
-    [SerializeField]
-    private GameObject DroppedHarvestable;
-    [SerializeField] private int minLogs;
-    [SerializeField] private int maxLogs;
-    [SerializeField] private float radiusFromTree;
+    
     [SerializeField] private GameObject pushover;
     private bool fallen;
     [SerializeField] private float pushoverForce;
@@ -40,17 +36,8 @@ public class Tree : Harvestable
 
             fallen = true;
 
-
-            int logCount = Random.Range(minLogs, maxLogs);
-            for (int i = 0; i < logCount; i++)
-            {
-                Vector3 spawnPoint = transform.position + Random.insideUnitSphere * radiusFromTree;
-                spawnPoint.y = 1;
-                if (DroppedHarvestable != null)
-                {
-                    Instantiate(DroppedHarvestable, spawnPoint, Quaternion.identity);
-                }
-            }
+            base.OnHarvest();
+           
         } else {
             for (int i = 0; i < treeSectionCount; i++)
             {
@@ -60,10 +47,20 @@ public class Tree : Harvestable
                 Instantiate(treeSection, treeFallPoint, Quaternion.Euler(0, RandomDirection, 90));
                 
             }
-            Destroy(gameObject);
         }
+        Harvested();
     }
-    
+
+    protected override void Harvested()
+    {
+        if (fallen)
+        {
+            base.Harvested();
+        }
+
+    }
+
+
 
 }
 

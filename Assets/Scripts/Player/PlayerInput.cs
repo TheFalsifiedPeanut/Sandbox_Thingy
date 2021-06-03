@@ -150,13 +150,13 @@ namespace GeorgeProject
             
         }
         private void OnPickup() {
-            if(Input.GetMouseButton(1)) {
+            if(Input.GetMouseButton(0)) {
                 Pickup();
             }
             
         }
         private void OnStopPickup() {
-            if(Input.GetMouseButtonUp(1)) {
+            if(Input.GetMouseButtonUp(0)) {
                 StopPickup();
             }
         }

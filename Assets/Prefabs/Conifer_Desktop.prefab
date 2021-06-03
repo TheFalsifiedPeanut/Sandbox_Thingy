@@ -475,12 +475,14 @@ MonoBehaviour:
   harvestingTool: 1
   harvestingLevel: 0
   harvestDurability: 8
-  DroppedHarvestable: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
-  minLogs: 0
-  maxLogs: 0
-  radiusFromTree: 10
+  minLogs: 1
+  maxLogs: 2
+  radiusFromObject: 5
+  droppedHarvestable: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
   pushover: {fileID: 8039015625357117751}
   pushoverForce: 1
+  treeSection: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
+  treeSectionCount: 4
 --- !u!1 &8039015624515561873
 GameObject:
   m_ObjectHideFlags: 0
