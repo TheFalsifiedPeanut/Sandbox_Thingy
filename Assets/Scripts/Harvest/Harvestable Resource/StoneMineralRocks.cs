@@ -35,6 +35,7 @@ public class StoneMineralRocks : Harvestable
                 Instantiate(droppedHarvestable, spawnPoint, Quaternion.identity);
             }
         }
+        base.OnHarvest();
     }
 
 
