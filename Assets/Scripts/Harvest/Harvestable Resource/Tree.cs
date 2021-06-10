@@ -12,11 +12,6 @@ public class Tree : LogHarvest
     [SerializeField] private int treeSectionCount;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -39,12 +34,17 @@ public class Tree : LogHarvest
             base.OnHarvest();
            
         } else {
-            for (int i = 0; i < treeSectionCount; i++)
+            List<SpawnInstuction> spawnInstuctions = lootTables.spawnInstuctions();
+            for (int i = 0; i < spawnInstuctions.Count; i++)
             {
-                int RandomDirection = Random.Range(0, 360);
-                Vector2 RandomPosition = Random.insideUnitCircle;
-                Vector3 treeFallPoint = transform.position + new Vector3(RandomPosition.x, 0, RandomPosition.y);
-                Instantiate(treeSection, treeFallPoint, Quaternion.Euler(0, RandomDirection, 90));
+                for (int j = 0; j < spawnInstuctions[i].GetCount(); j++)
+                {
+                    int RandomDirection = Random.Range(0, 360);
+                    Vector2 RandomPosition = Random.insideUnitCircle;
+                    Vector3 treeFallPoint = transform.position + new Vector3(RandomPosition.x, 0, RandomPosition.y);
+                    Instantiate(spawnInstuctions[i].GetSpawnObject(), treeFallPoint, Quaternion.Euler(0, RandomDirection, 90));
+                }
+                
                 
             }
         }

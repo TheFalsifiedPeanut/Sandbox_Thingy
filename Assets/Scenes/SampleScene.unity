@@ -490,6 +490,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 0
   droppedHarvestable: {fileID: 0}
+  lootTables:
+    tables: []
 --- !u!65 &191710002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -603,6 +605,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 6
   droppedHarvestable: {fileID: 0}
+  lootTables:
+    tables: []
 --- !u!65 &215532139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -851,8 +855,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 3
   droppedHarvestable: {fileID: 100012, guid: 059c81de61f2d4e4cbe522492d0181da, type: 3}
-  minLogs: 1
-  maxLogs: 3
+  lootTables:
+    tables: []
   radiusFromObject: 5
 --- !u!1001 &494987778
 PrefabInstance:
@@ -1242,6 +1246,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 6
   droppedHarvestable: {fileID: 0}
+  lootTables:
+    tables: []
 --- !u!65 &594962487
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1340,8 +1346,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 3
   droppedHarvestable: {fileID: 100012, guid: 059c81de61f2d4e4cbe522492d0181da, type: 3}
-  minLogs: 1
-  maxLogs: 3
+  lootTables:
+    tables: []
   radiusFromObject: 5
 --- !u!1 &724346209
 GameObject:
@@ -1454,6 +1460,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 6
   droppedHarvestable: {fileID: 0}
+  lootTables:
+    tables: []
 --- !u!65 &729885930
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1552,8 +1560,8 @@ MonoBehaviour:
   harvestingLevel: 1
   harvestDurability: 0
   droppedHarvestable: {fileID: 0}
-  minLogs: 0
-  maxLogs: 0
+  lootTables:
+    tables: []
   radiusFromObject: 0
   pushover: {fileID: 0}
   pushoverForce: 0
@@ -1885,6 +1893,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 6
   droppedHarvestable: {fileID: 0}
+  lootTables:
+    tables: []
 --- !u!65 &1087289686
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2221,8 +2231,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 3
   droppedHarvestable: {fileID: 100012, guid: 059c81de61f2d4e4cbe522492d0181da, type: 3}
-  minLogs: 1
-  maxLogs: 3
+  lootTables:
+    tables: []
   radiusFromObject: 5
 --- !u!1 &1447900191
 GameObject:
@@ -2693,6 +2703,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 6
   droppedHarvestable: {fileID: 0}
+  lootTables:
+    tables: []
 --- !u!65 &1666801408
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3815,6 +3827,8 @@ MonoBehaviour:
   harvestingLevel: 0
   harvestDurability: 6
   droppedHarvestable: {fileID: 0}
+  lootTables:
+    tables: []
 --- !u!65 &2138311548
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3990,6 +4004,182 @@ PrefabInstance:
       propertyPath: treeSectionCount
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[2].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].numberOfRolls
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].numberOfRolls
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[2].numberOfRolls
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[2].tableEntries.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].randomEntries.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[0].max
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[0].min
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[1].max
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[1].min
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[0].max
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[0].min
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[1].max
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[1].min
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[2].tableEntries.Array.data[0].max
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[2].tableEntries.Array.data[0].min
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].randomEntries.Array.data[0].max
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].randomEntries.Array.data[0].min
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[1].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[1].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[2].tableEntries.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].randomEntries.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[0].max
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[0].min
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[1].max
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[1].min
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[0].droppable
+      value: 
+      objectReference: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].tableEntries.Array.data[1].droppable
+      value: 
+      objectReference: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[0].droppable
+      value: 
+      objectReference: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[1].tableEntries.Array.data[1].droppable
+      value: 
+      objectReference: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[2].tableEntries.Array.data[0].droppable
+      value: 
+      objectReference: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].randomEntries.Array.data[0].droppable
+      value: 
+      objectReference: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[1].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[0].droppable
+      value: 
+      objectReference: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
+    - target: {fileID: 8039015624313501415, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
+      propertyPath: lootTables.tables.Array.data[0].guaranteedEntries.Array.data[1].droppable
+      value: 
+      objectReference: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
     - target: {fileID: 8039015624515561871, guid: 610fbdfc58fca6a428fea4904303ae73, type: 3}
       propertyPath: m_Name
       value: Conifer_Desktop

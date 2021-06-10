@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public struct TableEntry
 {
     [SerializeField] int min, max, weight;
@@ -28,4 +28,9 @@ public struct TableEntry
     {
         return ID;
     }
+    public void SetID(int ID)
+    {
+        this.ID = ID;
+    }
+
 }

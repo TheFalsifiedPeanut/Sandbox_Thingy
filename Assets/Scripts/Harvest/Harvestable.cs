@@ -22,32 +22,36 @@ public enum HarvestingLevel
 
 public class Harvestable : MonoBehaviour
 {
-[SerializeField] protected HarvestingTool harvestingTool;
-[SerializeField] protected HarvestingLevel harvestingLevel;
-[SerializeField] protected float harvestDurability;
-[SerializeField] protected GameObject droppedHarvestable;
+    [SerializeField] protected HarvestingTool harvestingTool;
+    [SerializeField] protected HarvestingLevel harvestingLevel;
+    [SerializeField] protected float harvestDurability;
+    [SerializeField] protected GameObject droppedHarvestable;
+    [SerializeField] protected LootTables lootTables;
 
 
-    public HarvestingTool GetHarvestingTool() {
-    return harvestingTool;
-}
-public HarvestingLevel GetHarvestingLevel() {
-    return harvestingLevel;
-}
-public float GetHarvestingDurability() {
-    return harvestDurability;
-}
+    public HarvestingTool GetHarvestingTool()
+    {
+        return harvestingTool;
+    }
+    public HarvestingLevel GetHarvestingLevel()
+    {
+        return harvestingLevel;
+    }
+    public float GetHarvestingDurability()
+    {
+        return harvestDurability;
+    }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        
+        lootTables.initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public virtual void OnHarvest()

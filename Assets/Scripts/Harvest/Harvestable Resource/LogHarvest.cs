@@ -4,35 +4,32 @@ using UnityEngine;
 
 public class LogHarvest : Harvestable
 {
-
-    [SerializeField] protected int minLogs;
-    [SerializeField] protected int maxLogs;
     [SerializeField] protected float radiusFromObject;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
     public override void OnHarvest()
     {
-    int logCount = Random.Range(minLogs, maxLogs);
-        for (int i = 0; i < logCount; i++)
+        List<SpawnInstuction> spawnInstuctions = lootTables.spawnInstuctions();
+        for (int i = 0; i < spawnInstuctions.Count; i++)
         {
-            Vector3 spawnPoint = transform.position + Random.insideUnitSphere * radiusFromObject;
-            spawnPoint.y = 1;
-            if (droppedHarvestable != null)
+            for (int j = 0; j < spawnInstuctions[i].GetCount(); j++)
             {
-                Instantiate(droppedHarvestable, spawnPoint, Quaternion.identity);
+                Vector3 spawnPoint = transform.position + Random.insideUnitSphere * radiusFromObject;
+                spawnPoint.y = 1;
+                if (droppedHarvestable != null)
+                {
+                    Instantiate(spawnInstuctions[i].GetSpawnObject(), spawnPoint, Quaternion.identity);
+                }
             }
+
         }
     }
 
