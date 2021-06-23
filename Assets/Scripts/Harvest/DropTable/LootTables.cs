@@ -18,20 +18,24 @@ public struct LootTables
             tables[i].initialize();
             for (int j = 0; j < tables[i].GetWeight(); j++)
             {
-                entryTokens.Add(tables[i].GetID());
+                entryTokens.Add(i);
             }
         }
     }
 
     public List<SpawnInstuction> spawnInstuctions()
     {
-        int randomIndex = Random.Range(0, entryTokens.Count);
-        List<TableEntry> tableEntries = tables[randomIndex].TableEntries();
         List<SpawnInstuction> Results = new List<SpawnInstuction>();
-        for (int i = 0; i < tableEntries.Count; i++)
+        if (entryTokens.Count > 0)
         {
-            int Count = Random.Range(tableEntries[i].GetMin(), tableEntries[i].GetMax());
-            Results.Add(new SpawnInstuction(Count, tableEntries[i].GetDroppable()));
+            int randomIndex = Random.Range(0, entryTokens.Count);
+            List<TableEntry> tableEntries = tables[entryTokens[randomIndex]].TableEntries();
+            
+            for (int i = 0; i < tableEntries.Count; i++)
+            {
+                int Count = Random.Range(tableEntries[i].GetMin(), tableEntries[i].GetMax());
+                Results.Add(new SpawnInstuction(Count, tableEntries[i].GetDroppable()));
+            }
         }
         return Results;
     }

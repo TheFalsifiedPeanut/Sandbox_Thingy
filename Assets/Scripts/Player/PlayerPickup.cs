@@ -10,55 +10,100 @@ public class PlayerPickup : MonoBehaviour
     private Inventory inventory;
     private Harvestable targetHarvest;
     private Coroutine BreakCoroutine;
-    
+    private bool interacting;
+    public Animator InteractAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         inventory = GetComponent<Inventory>();
-        playerInput.SubscribeToPickup(Pickup);
-        playerInput.SubscribeToStopPickup(StopPickup);
+        playerInput.SubscribeToPickup(OnInteract);
+        playerInput.SubscribeToStopPickup(StopInteract);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(layer.value);
+        if ((1 <<  other.gameObject.layer) == layer.value)
+        { 
+
+            Debug.Log("1");
+            if (other.transform.GetComponent<Harvestable>() != null)
+            {
+                Debug.Log("2");
+                if (other.transform.GetComponent<Harvestable>() != targetHarvest)
+                {
+                    targetHarvest = other.transform.GetComponent<Harvestable>();
+                    Debug.Log(targetHarvest);
+                }
+            }
+        }
     }
 
-    private void Pickup() {
+    public void OnInteract()
+    {
+        if(targetHarvest != null)
+        {
+            interacting = true;
+            BreakCoroutine = StartCoroutine(HarvestTimer(targetHarvest, HarvestingLevel.STONETOOL));
+            
+        }
+        InteractAnimation.SetBool("Chop", true);   
+    }
+
+    public void StopInteract()
+    {
+        interacting = false;
+        targetHarvest = null;
+        if (BreakCoroutine != null)
+        {
+            StopCoroutine(BreakCoroutine);
+        }
+        InteractAnimation.SetBool("Chop", false);
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == targetHarvest)
+        {
+            StopInteract();
+        }
+    }
+
+
+    /* private void Pickup() {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction, Color.blue, 0.5f);
-        if(Physics.Raycast(ray,out hit, 3,layer.value)) {
-            if(hit.transform.GetComponent<Harvestable>() != null)
-            {
-                if (hit.transform.GetComponent<Harvestable>() != targetHarvest)
-                {
-                    targetHarvest = hit.transform.GetComponent<Harvestable>();
-                    Debug.Log(targetHarvest);
-                    BreakCoroutine = StartCoroutine(HarvestTimer(targetHarvest, HarvestingLevel.STONETOOL));
-                }
-            }
-            
-            //inventory.FindStartPosition(hit.transform.GetComponent<IInventoryItem>());
+        if (Physics.Raycast(ray, out hit, 3, layer.value)) {
 
-        }
-    }
-    private void StopPickup() {
+         */
+
+    //inventory.FindStartPosition(hit.transform.GetComponent<IInventoryItem>());
+
+
+    /*private void StopPickup() {
         Debug.Log("Stop");
         targetHarvest = null;
-        if(BreakCoroutine != null) 
+        if (BreakCoroutine != null)
         {
             StopCoroutine(BreakCoroutine);
-            
+
         }
-        
-    }
-    private IEnumerator HarvestTimer(Harvestable harvestable, HarvestingLevel harvestingLevel) {
+
+    }*/
+    private IEnumerator HarvestTimer(Harvestable harvestable, HarvestingLevel harvestingLevel)
+    {
         Debug.Log("Hello");
         Debug.Log("WaitForSeconds" + (int)harvestingLevel + 1);
-        
+
         yield return new WaitForSeconds(harvestable.GetHarvestingDurability() / ((int)harvestingLevel + 1));
         Debug.Log("bye");
         harvestable.OnHarvest();
@@ -68,6 +113,6 @@ public class PlayerPickup : MonoBehaviour
             Debug.Log("Pickup");
             inventory.FindStartPosition(item);
         }
-            
+
     }
 }
