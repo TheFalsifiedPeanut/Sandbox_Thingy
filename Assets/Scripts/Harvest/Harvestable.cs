@@ -27,7 +27,7 @@ public class Harvestable : MonoBehaviour
     [SerializeField] protected float harvestDurability;
     [SerializeField] protected GameObject droppedHarvestable;
     [SerializeField] protected LootTables lootTables;
-
+    [SerializeField] protected int health;
 
     public HarvestingTool GetHarvestingTool()
     {
@@ -40,6 +40,19 @@ public class Harvestable : MonoBehaviour
     public float GetHarvestingDurability()
     {
         return harvestDurability;
+    }
+    public int GetHealth()
+    {
+        return health;
+    }
+    public void SetHealth(int health)
+    {
+        this.health = health;
+    }
+    public void RemoveHealth(int amount)
+    {
+        health -= amount;
+        OnHarvest();
     }
 
     // Start is called before the first frame update
@@ -60,6 +73,9 @@ public class Harvestable : MonoBehaviour
     }
     protected virtual void Harvested()
     {
-        Destroy(gameObject);
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

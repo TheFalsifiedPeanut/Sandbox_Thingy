@@ -119,7 +119,7 @@ namespace GeorgeProject
             
         }
         private void OnPickup() {
-            if(Input.GetMouseButton(0)) {
+            if(Input.GetMouseButtonDown(0)) {
                 Pickup();
             }
             

@@ -45,7 +45,7 @@ public class Tree : LogHarvest
         else
         {
             SecondHarvest();
-            Harvested();
+            
         }
     }
 
@@ -70,8 +70,8 @@ public class Tree : LogHarvest
                 Vector3 treeFallPoint = transform.position + new Vector3(RandomPosition.x, 0, RandomPosition.y);
                 Instantiate(spawnInstuctions[i].GetSpawnObject(), treeFallPoint, Quaternion.Euler(0, RandomDirection, 90));
             }
-
         }
+        Harvested();
     }
 }
 

@@ -32,16 +32,16 @@ public class PlayerPickup : MonoBehaviour
     {
         Debug.Log(layer.value);
         if ((1 <<  other.gameObject.layer) == layer.value)
-        { 
-
+        {
+            Harvestable otherHarvest = other.transform.GetComponent<Harvestable>() != null ? other.transform.GetComponent<Harvestable>() : other.transform.GetComponentInParent<Harvestable>();
             Debug.Log("1");
-            if (other.transform.GetComponent<Harvestable>() != null)
+            if (otherHarvest != null && otherHarvest != targetHarvest) 
             {
-                Debug.Log("2");
-                if (other.transform.GetComponent<Harvestable>() != targetHarvest)
+                targetHarvest = otherHarvest;
+                Debug.Log(targetHarvest);
+                if(interacting)
                 {
-                    targetHarvest = other.transform.GetComponent<Harvestable>();
-                    Debug.Log(targetHarvest);
+                    BreakCoroutine = StartCoroutine(HarvestTimer(targetHarvest, HarvestingLevel.STONETOOL));
                 }
             }
         }
@@ -49,11 +49,10 @@ public class PlayerPickup : MonoBehaviour
 
     public void OnInteract()
     {
-        if(targetHarvest != null)
+        interacting = true;
+        if (targetHarvest != null)
         {
-            interacting = true;
             BreakCoroutine = StartCoroutine(HarvestTimer(targetHarvest, HarvestingLevel.STONETOOL));
-            
         }
         InteractAnimation.SetBool("Chop", true);   
     }
