@@ -11,6 +11,7 @@ public class Tree : LogHarvest
     [SerializeField] private float pushoverForce;
     [SerializeField] private GameObject treeSection;
     [SerializeField] private int treeSectionCount;
+    [SerializeField]private int standingHealth;
     
 
 
@@ -28,10 +29,10 @@ public class Tree : LogHarvest
 
     public override void OnHarvest()
     {
-
-        if (fallen == false)
+        standingHealth--;
+        if (fallen == false && standingHealth <= 0)
         {
-
+            
 
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
             Vector3 treeDirection = Random.insideUnitCircle;
@@ -40,7 +41,6 @@ public class Tree : LogHarvest
 
 
             fallen = true;
-            base.OnHarvest();
         }
         else
         {
@@ -60,6 +60,7 @@ public class Tree : LogHarvest
 
     public void SecondHarvest()
     {
+        Debug.Log("SecondHarvest");
         List<SpawnInstuction> spawnInstuctions = lootTablesT2.spawnInstuctions();
         for (int i = 0; i < spawnInstuctions.Count; i++)
         {

@@ -50,6 +50,7 @@ public class PlayerPickup : MonoBehaviour
     public void OnInteract()
     {
         interacting = true;
+        Debug.Log("Interacting");
         if (targetHarvest != null)
         {
             BreakCoroutine = StartCoroutine(HarvestTimer(targetHarvest, HarvestingLevel.STONETOOL));
@@ -68,13 +69,13 @@ public class PlayerPickup : MonoBehaviour
         InteractAnimation.SetBool("Chop", false);
     }
 
-    public void OnTriggerExit(Collider other)
+    /*public void OnTriggerExit(Collider other)
     {
         if (other.gameObject == targetHarvest)
         {
             StopInteract();
         }
-    }
+    } */
 
 
     /* private void Pickup() {

@@ -9,6 +9,7 @@ public class PlayerInteract : MonoBehaviour
     public Animator InteractAnimation;
     private Inventory inventory;
     private PlayerInput playerInput;
+    private bool Interacting;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,16 +29,22 @@ public class PlayerInteract : MonoBehaviour
     public void OnInteract()
     {
         InteractAnimation.SetBool("Chop", true);
+        Interacting = true;
     }
 
     public void StopInteract()
     {
         InteractAnimation.SetBool("Chop", false);
+        Interacting = false;
     }
 
     public void OnGather(Harvestable harvestable)
     {
-        harvestable.RemoveHealth(1);
+        if(Interacting == true)
+        {
+            harvestable.RemoveHealth(1);
+        }
+        
     }
 
 }

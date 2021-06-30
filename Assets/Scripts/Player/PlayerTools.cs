@@ -36,6 +36,7 @@ public class PlayerTools : MonoBehaviour
             Debug.Log("1");
             if (otherHarvest != null)
             {
+                Debug.Log("healthy trees");
                 OnGather(otherHarvest);
             }
         }
