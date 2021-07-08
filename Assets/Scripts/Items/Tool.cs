@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public class PlayerTools : MonoBehaviour
+public class Tool : MonoBehaviour
 {
-    [SerializeField] int toolDamage;
-    [SerializeField] HarvestingTool harvestingTool;
-    [SerializeField] HarvestingLevel harvestingLevel;
-    [SerializeField] LayerMask layer;
+    [SerializeField] protected int toolDamage;
+    [SerializeField] protected HarvestingTool harvestingTool;
+    [SerializeField] protected HarvestingLevel harvestingLevel;
+    [SerializeField] protected LayerMask layer;
 
     private void OnTriggerEnter(Collider other)
     {

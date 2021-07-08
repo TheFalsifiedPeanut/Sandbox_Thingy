@@ -41,7 +41,6 @@ public class PlayerPickup : MonoBehaviour
                 Debug.Log(targetHarvest);
                 if(interacting)
                 {
-                    BreakCoroutine = StartCoroutine(HarvestTimer(targetHarvest, HarvestingLevel.STONETOOL));
                 }
             }
         }
@@ -53,7 +52,6 @@ public class PlayerPickup : MonoBehaviour
         Debug.Log("Interacting");
         if (targetHarvest != null)
         {
-            BreakCoroutine = StartCoroutine(HarvestTimer(targetHarvest, HarvestingLevel.STONETOOL));
         }
         InteractAnimation.SetBool("Chop", true);   
     }
@@ -99,20 +97,4 @@ public class PlayerPickup : MonoBehaviour
         }
 
     }*/
-    private IEnumerator HarvestTimer(Harvestable harvestable, HarvestingLevel harvestingLevel)
-    {
-        Debug.Log("Hello");
-        Debug.Log("WaitForSeconds" + (int)harvestingLevel + 1);
-
-        yield return new WaitForSeconds(harvestable.GetHarvestingDurability() / ((int)harvestingLevel + 1));
-        Debug.Log("bye");
-        harvestable.OnHarvest();
-        IInventoryItem item = harvestable.GetComponent<IInventoryItem>();
-        if (item != null)
-        {
-            Debug.Log("Pickup");
-            inventory.FindStartPosition(item);
-        }
-
-    }
 }
