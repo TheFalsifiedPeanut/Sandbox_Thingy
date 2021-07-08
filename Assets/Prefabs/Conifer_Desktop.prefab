@@ -473,10 +473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af662b8b1fa94746bdae09b504d4b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
   harvestingTool: 1
   harvestingLevel: 0
-  harvestDurability: 4
-  droppedHarvestable: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
   lootTables:
     tables:
     - weight: 1
@@ -499,25 +498,20 @@ MonoBehaviour:
         max: 1
         weight: 1
         droppable: {fileID: 9033091003229355298, guid: c3ca10e309789aa4a97eb03097b26f54, type: 3}
-  health: 3
-  radiusFromObject: 5
-  lootTablesT2:
+  harvestSpawnRadius: 1
+  standingHealth: 3
+  pushoverForce: 1
+  standingLootTables:
     tables:
     - weight: 1
-      numberOfRolls: 1
+      numberOfRolls: 0
       randomEntries: []
       guaranteedEntries:
       - min: 1
-        max: 4
-        weight: 0
-        droppable: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
+        max: 3
+        weight: 1
+        droppable: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
   pushover: {fileID: 8039015625357117751}
-  pushoverForce: 1
-  treeSection: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
-  treeSectionCount: 4
-  standingHealth: 3
-  HitPoints:
-  - {fileID: 222353472531472684, guid: 5204cba9c51fb95429ba0e77d70b8dba, type: 3}
 --- !u!1 &8039015624515561873
 GameObject:
   m_ObjectHideFlags: 0

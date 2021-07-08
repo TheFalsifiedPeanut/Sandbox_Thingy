@@ -18,7 +18,17 @@ public class Tool : MonoBehaviour
             if (harvestable != null)
             {
                 harvestable.RemoveHealth(toolDamage, harvestingTool, harvestingLevel);
+                gameObject.GetComponent<Collider>().enabled = false;
             }
         }
+    }
+    public void TurnOff()
+    {
+        gameObject.GetComponent<Collider>().enabled = false;
+    }
+    public IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(3);
+        gameObject.GetComponent<Collider>().enabled = true;
     }
 }

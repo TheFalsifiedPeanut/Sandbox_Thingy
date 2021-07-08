@@ -6,7 +6,7 @@ using DitzelGames.FastIK;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public PlayerTools playerTools;
+    public Tool tool;
     public Animator InteractAnimation;
     private Inventory inventory;
     private PlayerInput playerInput;
@@ -34,6 +34,7 @@ public class PlayerInteract : MonoBehaviour
         TargetBox.enabled = true;
         InteractAnimation.SetBool("Chop", true);
         Interacting = true;
+        tool.GetComponent<Collider>().enabled = true;
     }
 
     public void StopInteract()
@@ -41,5 +42,6 @@ public class PlayerInteract : MonoBehaviour
         TargetBox.enabled = false;
         InteractAnimation.SetBool("Chop", false);
         Interacting = false;
+        tool.GetComponent<Collider>().enabled = false;
     }
 }

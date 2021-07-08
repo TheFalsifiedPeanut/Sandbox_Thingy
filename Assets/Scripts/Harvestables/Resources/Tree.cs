@@ -88,12 +88,10 @@ public class Tree : RadiusHarvestable
             }
 
             fallen = true;
+            return;
         }
 
-        if (fallen)
-        {
             base.OnHarvested();
-        }
     }
 
     /// <summary>

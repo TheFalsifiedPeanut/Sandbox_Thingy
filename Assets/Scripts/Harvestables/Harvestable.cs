@@ -8,12 +8,12 @@ using UnityEngine;
 /// </summary>
 [Flags] public enum HarvestingTool 
 {
-    PICKAXE,
-    AXE,
-    SHOVEL,
-    LIQUIDCONTAINER,
-    HANDS,
-    HOE
+    PICKAXE = 1,
+    AXE = 2,
+    SHOVEL = 4,
+    LIQUIDCONTAINER = 8,
+    HANDS = 16,
+    HOE = 32
 
 }
 
