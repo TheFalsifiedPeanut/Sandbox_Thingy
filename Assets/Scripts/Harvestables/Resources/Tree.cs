@@ -55,7 +55,7 @@ public class Tree : RadiusHarvestable
     /// </summary>
     public override void OnHarvest()
     {
-        if (standingHealth <= 0)
+        if (standingHealth <= 0 && !fallen)
         {
             OnHarvested();
 
