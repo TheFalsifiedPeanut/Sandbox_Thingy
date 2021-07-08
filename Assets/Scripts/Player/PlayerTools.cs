@@ -8,6 +8,8 @@ public class PlayerTools : MonoBehaviour
 
     private Action<Harvestable> OnGather;
     public LayerMask layer;
+    private bool OnCooldown;
+    public float CooldownTimer;
 
     public void SubscribeToOnGather(Action<Harvestable> OnGather)
     {
@@ -29,17 +31,33 @@ public class PlayerTools : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(layer.value);
-        if ((1 << other.gameObject.layer) == layer.value)
+        if(OnCooldown == false)
         {
-            Harvestable otherHarvest = other.transform.GetComponent<Harvestable>() != null ? other.transform.GetComponent<Harvestable>() : other.transform.GetComponentInParent<Harvestable>();
-            Debug.Log("1");
-            if (otherHarvest != null)
+            Debug.Log(layer.value);
+            if ((1 << other.gameObject.layer) == layer.value)
             {
-                Debug.Log("healthy trees");
-                OnGather(otherHarvest);
+                Harvestable otherHarvest = other.transform.GetComponent<Harvestable>() != null ? other.transform.GetComponent<Harvestable>() : other.transform.GetComponentInParent<Harvestable>();
+                Debug.Log("1");
+                if (otherHarvest != null)
+                {
+                    Debug.Log("healthy trees");
+                    OnGather(otherHarvest);
+                    OnCooldown = true;
+                }
             }
         }
+        
+    }
+
+    public void Cooldown()
+    {
+        
+        OnCooldown = false;
+    }
+
+    public void TurnOff()
+    {
+        OnCooldown = true;
     }
 
 

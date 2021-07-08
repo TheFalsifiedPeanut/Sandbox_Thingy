@@ -11,9 +11,15 @@ public class Tree : LogHarvest
     [SerializeField] private float pushoverForce;
     [SerializeField] private GameObject treeSection;
     [SerializeField] private int treeSectionCount;
-    [SerializeField]private int standingHealth;
-    
+    [SerializeField] private int standingHealth;
+    [SerializeField] GameObject[] HitPoints;
 
+
+
+    public override void RemoveHealth(int amount)
+    {
+        OnHarvest();
+    }
 
     // Update is called once per frame
     void Update()
@@ -42,10 +48,14 @@ public class Tree : LogHarvest
 
             fallen = true;
         }
-        else
+        else if(fallen)
         {
-            SecondHarvest();
-            
+            if(health <= 0)
+            {
+                SecondHarvest();
+            }
+            Debug.LogFormat("Harvested");
+            health--;
         }
     }
 

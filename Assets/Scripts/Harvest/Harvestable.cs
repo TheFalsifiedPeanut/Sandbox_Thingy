@@ -49,7 +49,7 @@ public class Harvestable : MonoBehaviour
     {
         this.health = health;
     }
-    public void RemoveHealth(int amount)
+    public virtual void RemoveHealth(int amount)
     {
         health -= amount;
         OnHarvest();
