@@ -17,7 +17,6 @@ public class PlayerInteract : MonoBehaviour
         inventory = GetComponent<Inventory>();
         playerInput.SubscribeToPickup(OnInteract);
         playerInput.SubscribeToStopPickup(StopInteract);
-        playerTools.SubscribeToOnGather(OnGather);
     }
 
     // Update is called once per frame
@@ -37,14 +36,4 @@ public class PlayerInteract : MonoBehaviour
         InteractAnimation.SetBool("Chop", false);
         Interacting = false;
     }
-
-    public void OnGather(Harvestable harvestable)
-    {
-        if(Interacting == true)
-        {
-            harvestable.RemoveHealth(1);
-        }
-        
-    }
-
 }
