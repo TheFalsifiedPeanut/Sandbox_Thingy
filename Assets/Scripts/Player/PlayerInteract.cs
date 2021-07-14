@@ -6,15 +6,15 @@ using DitzelGames.FastIK;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public Tool tool;
-    public Animator InteractAnimation;
-    private Inventory inventory;
-    private PlayerInput playerInput;
-    private bool Interacting;
-    public BoxCollider TargetBox;
+    private bool interacting;
     public LayerMask layer;
-    public GameObject InteractTarget;
-    // Start is called before the first frame update
+    public Tool tool;
+    private PlayerInput playerInput;
+    private Inventory inventory;
+    public BoxCollider targetBox;
+    public Animator interactAnimation;
+    public GameObject interactTarget;
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -23,25 +23,25 @@ public class PlayerInteract : MonoBehaviour
         playerInput.SubscribeToStopPickup(StopInteract);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// When the player is clicking to interact.
+    /// </summary>
     public void OnInteract()
     {
-        TargetBox.enabled = true;
-        InteractAnimation.SetBool("Chop", true);
-        Interacting = true;
+        interacting = true;
+        targetBox.enabled = true;
+        interactAnimation.SetBool("Chop", true);
         tool.GetComponent<Collider>().enabled = true;
     }
 
+    /// <summary>
+    /// When the player ends interacting.
+    /// </summary>
     public void StopInteract()
     {
-        TargetBox.enabled = false;
-        InteractAnimation.SetBool("Chop", false);
-        Interacting = false;
+        interacting = false;
+        targetBox.enabled = false;
+        interactAnimation.SetBool("Chop", false);
         tool.GetComponent<Collider>().enabled = false;
     }
 }

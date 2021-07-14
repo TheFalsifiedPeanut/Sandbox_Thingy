@@ -102,7 +102,7 @@ public class Harvestable : MonoBehaviour
     protected virtual void Start()
     {
         // Initialise the loot tables.
-        lootTables.initialize();
+        lootTables.Initialise();
     }
 
     #region Harvesting
@@ -123,8 +123,10 @@ public class Harvestable : MonoBehaviour
     /// </summary>
     protected virtual void OnHarvested()
     {
-        List<SpawnInstuction> spawnInstuctions = lootTables.spawnInstuctions();
+        // Get the loot spawn instructions for the harvestable.
+        List<SpawnInstuction> spawnInstuctions = lootTables.GetSpawnInstuctions();
 
+        // Follow the spawn instructions.
         for (int i = 0; i < spawnInstuctions.Count; i++)
         {
             for (int j = 0; j < spawnInstuctions[i].GetCount(); j++)

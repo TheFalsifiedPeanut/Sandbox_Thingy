@@ -4,18 +4,25 @@ using UnityEngine;
 [System.Serializable]
 public struct LootTables
 {
-    // Start is called before the first frame update
     [SerializeField] List<Table> tables;
-     List<int> entryTokens;
 
+    // A pool for all the loot tables.
+    List<int> entryTokens;
 
-    public void initialize()
+    /// <summary>
+    /// Initialise the loot table system.
+    /// </summary>
+    public void Initialise()
     {
         entryTokens = new List<int>();
+
         for (int i = 0; i < tables.Count; i++)
         {
+            // Set the ID of the table.
             tables[i].SetID(i);
-            tables[i].initialize();
+            tables[i].Initialise();
+
+            // For the weight of the table, add a token to the pool.
             for (int j = 0; j < tables[i].GetWeight(); j++)
             {
                 entryTokens.Add(i);
@@ -23,29 +30,42 @@ public struct LootTables
         }
     }
 
-    public List<SpawnInstuction> spawnInstuctions()
+    /// <summary>
+    /// Generates a list of spawn instructions for loot.
+    /// </summary>
+    /// <returns> Returns a list of instructions for spawning loot. </returns>
+    public List<SpawnInstuction> GetSpawnInstuctions()
     {
         List<SpawnInstuction> Results = new List<SpawnInstuction>();
+
         if (entryTokens.Count > 0)
         {
+            // Get a random value for indexing the pool.
             int randomIndex = Random.Range(0, entryTokens.Count);
-            List<TableEntry> tableEntries = tables[entryTokens[randomIndex]].TableEntries();
+            //Get a list of entries that contain data for spawning.
+            List<TableEntry> tableEntries = tables[entryTokens[randomIndex]].GetTableEntries();
             
             for (int i = 0; i < tableEntries.Count; i++)
             {
-                int Count = Random.Range(tableEntries[i].GetMin(), tableEntries[i].GetMax());
-                Results.Add(new SpawnInstuction(Count, tableEntries[i].GetDroppable()));
+                // Get how many to spawn.
+                int count = Random.Range(tableEntries[i].GetMin(), tableEntries[i].GetMax());
+                // Save the results.
+                Results.Add(new SpawnInstuction(count, tableEntries[i].GetDroppable()));
             }
         }
+
         return Results;
     }
-
 }
+
 [System.Serializable]
 public struct SpawnInstuction
 {
+    // How many to spawn.
     int Count;
+    // What object to spawn.
     GameObject spawnObject;
+
     public SpawnInstuction(int Count, GameObject spawnObject)
     {
         this.Count = Count;
@@ -61,10 +81,4 @@ public struct SpawnInstuction
     {
         return spawnObject;
     }
-
-
-
 }
-
-
-

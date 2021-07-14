@@ -12,6 +12,7 @@ public class RadiusHarvestable : Harvestable
     /// <param name="harvest"> The harvest to spawn. </param>
     protected override void SpawnHarvest(GameObject harvest)
     {
+        // Spawn in a radius around the harvest position.
         Vector3 spawnPoint = transform.position + Random.insideUnitSphere * harvestSpawnRadius;
         spawnPoint.y = 1;
         Instantiate(harvest, spawnPoint, Quaternion.identity);

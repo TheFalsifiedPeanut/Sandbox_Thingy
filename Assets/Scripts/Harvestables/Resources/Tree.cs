@@ -47,7 +47,7 @@ public class Tree : RadiusHarvestable
         base.Start();
 
         // Initialise the secondary loot tables.
-        standingLootTables.initialize();
+        standingLootTables.Initialise();
     }
 
     /// <summary>
@@ -72,13 +72,16 @@ public class Tree : RadiusHarvestable
     {
         if (!fallen)
         {
+            // Set the tree to be able to fall then push it in a random direction.
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
             Vector3 treeDirection = Random.insideUnitCircle;
             pushover.AddComponent<Rigidbody>();
             pushover.GetComponent<Rigidbody>().AddForce(new Vector3(treeDirection.x, 0, treeDirection.y).normalized * pushoverForce, ForceMode.Impulse);
 
-            List<SpawnInstuction> spawnInstuctions = standingLootTables.spawnInstuctions();
+            // Get the loot spawn instructions for when the tree is standing.
+            List<SpawnInstuction> spawnInstuctions = standingLootTables.GetSpawnInstuctions();
 
+            // Follow the spawn instructions.
             for (int i = 0; i < spawnInstuctions.Count; i++)
             {
                 for (int j = 0; j < spawnInstuctions[i].GetCount(); j++)
@@ -87,11 +90,13 @@ public class Tree : RadiusHarvestable
                 }
             }
 
+            // Set the tree to fallen.
             fallen = true;
+
             return;
         }
 
-            base.OnHarvested();
+        base.OnHarvested();
     }
 
     /// <summary>
@@ -100,9 +105,10 @@ public class Tree : RadiusHarvestable
     /// <param name="harvest"> The harvest to spawn. </param>
     protected override void SpawnHarvest(GameObject harvest)
     {
-        int RandomDirection = Random.Range(0, 360);
+        // Get a random rotation for logs and spawn them.
+        int randomDirection = Random.Range(0, 360);
         Vector3 spawnPoint = transform.position + Random.insideUnitSphere * harvestSpawnRadius;
         spawnPoint.y = 1;
-        Instantiate(harvest, spawnPoint, Quaternion.Euler(0, RandomDirection, 90));
+        Instantiate(harvest, spawnPoint, Quaternion.Euler(0, randomDirection, 90));
     }
 }
