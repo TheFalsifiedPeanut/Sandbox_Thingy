@@ -11,9 +11,10 @@ public class PlayerInteract : MonoBehaviour
     public Tool tool;
     private PlayerInput playerInput;
     private Inventory inventory;
-    public BoxCollider targetBox;
+    public GameObject targetBox;
     public Animator interactAnimation;
     public GameObject interactTarget;
+    public InteractSearch interactSearch;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class PlayerInteract : MonoBehaviour
         inventory = GetComponent<Inventory>();
         playerInput.SubscribeToPickup(OnInteract);
         playerInput.SubscribeToStopPickup(StopInteract);
+        interactSearch.SetPlayerInteract(this);
     }
 
     /// <summary>
@@ -29,7 +31,6 @@ public class PlayerInteract : MonoBehaviour
     public void OnInteract()
     {
         interacting = true;
-        targetBox.enabled = true;
         interactAnimation.SetBool("Chop", true);
         tool.GetComponent<Collider>().enabled = true;
     }
@@ -40,8 +41,8 @@ public class PlayerInteract : MonoBehaviour
     public void StopInteract()
     {
         interacting = false;
-        targetBox.enabled = false;
         interactAnimation.SetBool("Chop", false);
         tool.GetComponent<Collider>().enabled = false;
     }
+    
 }
