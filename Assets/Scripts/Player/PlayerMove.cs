@@ -7,7 +7,7 @@ namespace GeorgeProject
     /// </summary>
     public class PlayerMove : MonoBehaviour
     {
-        // A layer mask for checking if the player is touching the ground. This works like a tag but is designed around physics. It is more performant and flexible. More on this next lesson.
+        // A layer mask for checking if the player is touching the ground. This works like a tag but is designed around physics. It is more performant and flexible.
         [SerializeField]
         LayerMask ground;
 
@@ -29,13 +29,13 @@ namespace GeorgeProject
             // Assign the player rigidbody.
             rigid = GetComponent<Rigidbody>();
 
-            // This is where we subscribe to the Jump Action. We pass it the Jump function from this clas, with no brackets. It will then be called from the Jump action when the Space key is pressed.
+            // This is where we subscribe to the Jump Action. We pass it the Jump function from this class, with no brackets. It will then be called from the Jump action when the Space key is pressed.
             playerInput.SubscribeToJump(Jump);
         }
 
         void Update()
         {
-            // Call the movement.
+            // Updates the movement.
             Move();
         }
 
@@ -44,7 +44,7 @@ namespace GeorgeProject
         /// </summary>
         void Move()
         {
-            // This rotates the movement direction from world space to local space based on players rotation. The player input positions are multiplied by the players up rotation. More on the math behind this next lesson.
+            // This rotates the movement direction from world space to local space based on players rotation. The player input positions are multiplied by the players up rotation.
             Vector3 targetPosition = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * new Vector3(playerInput.GetXPosition(), 0, playerInput.GetZPosition());
             // Set the player's position to be the current position plus the target position. Move this at the current move speed and scale it with delta time.
             transform.position = Vector3.MoveTowards(transform.position, transform.position + targetPosition, playerStats.GetCurrentMoveSpeed() * Time.deltaTime);
@@ -69,7 +69,7 @@ namespace GeorgeProject
         /// <param name="collision"> The collider we hit. </param>
         void OnCollisionEnter(Collision collision)
         {
-            // Here we check against the layermask we set earlier. This uses a bitwise operator. More on this next lesson.
+            // Here we check against the layermask we set earlier. This uses a bitwise operator..
             if ((1 << collision.transform.gameObject.layer & ground.value) != 0)
             {
                 // If we did hit the ground set the bool to true.

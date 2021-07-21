@@ -20,9 +20,9 @@ namespace GeorgeProject
 
         void Start()
         {
-            // Assign the player stats class.
+            // Assign the Player Stats class.
             playerStats = GetComponent<PlayerStats>();
-            // Assign the player inputs class.
+            // Assign the Player Inputs class.
             playerInput = GetComponent<PlayerInput>();
 
             // Lock the cursor to the middle of the screen.
@@ -44,7 +44,7 @@ namespace GeorgeProject
             // Get the y axis rotation. This is for looking left and right. Affects the player.
             float yRotation = transform.rotation.eulerAngles.y + playerInput.GetYRotation();
 
-            // This rescales the minimum angle to fix the negative issue we were having. I will explain the issue next time in better detail.
+            // This rescales the minimum angle to fix the negative issue we were having.
             float minimumAngleRescale = (360 + playerStats.GetMinimumAngle());
             // This mid point isn't totally necessary, it just finds the mid point between the minimum and maximum on the outside area (the area we are restricting).
             //This is just used for calculating if the camera is beyond the restrictions whether to snap it to the minimum or maximum.
