@@ -8,7 +8,7 @@ public class PickupItem : MonoBehaviour
 
     private void Start()
     {
-        PickedUp = false
+        PickedUp = false;
     }
 
     public void ItemPickup() 
