@@ -15,6 +15,7 @@ public class PlayerInteract : MonoBehaviour
     public Animator interactAnimation;
     public GameObject interactTarget;
     public InteractSearch interactSearch;
+    public float interactHeightThreshold;
 
     void Start()
     {
@@ -22,7 +23,6 @@ public class PlayerInteract : MonoBehaviour
         inventory = GetComponent<Inventory>();
         playerInput.SubscribeToPickup(OnInteract);
         playerInput.SubscribeToStopPickup(StopInteract);
-        interactSearch.SetPlayerInteract(this);
     }
 
     /// <summary>
@@ -30,9 +30,28 @@ public class PlayerInteract : MonoBehaviour
     /// </summary>
     public void OnInteract()
     {
-        interacting = true;
-        interactAnimation.SetBool("Chop", true);
-        tool.GetComponent<Collider>().enabled = true;
+        if(interacting == false)
+        {
+            StartCoroutine(ClickCooldown());
+            interacting = true;
+
+            tool.GetComponent<Collider>().enabled = true;
+            if (targetBox != null)
+            {
+                if (targetBox.transform.position.y < interactHeightThreshold)
+                {
+                    Debug.Log("Lower Chop");
+                }
+                else
+                {
+                    interactAnimation.SetBool("Chop", true);
+                    Debug.Log("Upper Chop");
+                }
+            }
+        }
+        
+        
+        
     }
 
     /// <summary>
@@ -40,9 +59,16 @@ public class PlayerInteract : MonoBehaviour
     /// </summary>
     public void StopInteract()
     {
+        
+        
+    }
+
+    public IEnumerator ClickCooldown()
+    {
+        yield return new WaitForSeconds(3);
         interacting = false;
         interactAnimation.SetBool("Chop", false);
         tool.GetComponent<Collider>().enabled = false;
     }
-    
+
 }

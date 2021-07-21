@@ -29,6 +29,7 @@ public class Tool : MonoBehaviour
                 TurnOff();
             }
         }
+        TurnOff();
     }
 
     /// <summary>
@@ -43,10 +44,8 @@ public class Tool : MonoBehaviour
     /// The cooldown for the tool.
     /// </summary>
     /// <returns></returns>
-    public IEnumerator Cooldown()
+    public void TurnOn()
     {
-        yield return new WaitForSeconds(toolCooldown);
-
         gameObject.GetComponent<Collider>().enabled = true;
     }
 }

@@ -27,6 +27,7 @@ public class InteractSearch : MonoBehaviour
         {
             if(CurrentDistance == -1 || CurrentDistance > Vector3.SqrMagnitude(this.transform.position - other.gameObject.transform.position))
             {
+                CurrentDistance = Vector3.SqrMagnitude(this.transform.position - other.gameObject.transform.position);
                 playerInteract.targetBox = other.gameObject;
             } else
             {
@@ -37,11 +38,19 @@ public class InteractSearch : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (playerInteract.targetBox != null)
+        {
+            CurrentDistance = Vector3.SqrMagnitude(this.transform.position - playerInteract.targetBox.transform.position);
+        }
         for (int i = 0; i < CurrentInteractions.Count; i++)
         {
-            if(CurrentDistance > Vector3.SqrMagnitude(this.transform.position - CurrentInteractions[i].transform.position))
+            if(CurrentInteractions[i] != null)
             {
-                playerInteract.targetBox = CurrentInteractions[i];
+                if (CurrentDistance > Vector3.SqrMagnitude(this.transform.position - CurrentInteractions[i].transform.position))
+                {
+                    CurrentDistance = Vector3.SqrMagnitude(this.transform.position - CurrentInteractions[i].transform.position);
+                    playerInteract.targetBox = CurrentInteractions[i];
+                }
             }
         }
     }
@@ -57,6 +66,7 @@ public class InteractSearch : MonoBehaviour
                 {
                     if (CurrentDistance > Vector3.SqrMagnitude(this.transform.position - CurrentInteractions[i].transform.position))
                     {
+                        CurrentDistance = Vector3.SqrMagnitude(this.transform.position - CurrentInteractions[i].transform.position);
                         playerInteract.targetBox = CurrentInteractions[i];
                     }
                 }
