@@ -12,6 +12,7 @@ public class PlayerTool : MonoBehaviour
     [SerializeField] HarvestingLevel harvestingLevel;
     // The layer to check for when this tool collides with an object on Interactable layer.
     [SerializeField] LayerMask layer;
+    private bool interacting;
 
     Collider toolCollider;
     Animator interactAnimation;
@@ -46,7 +47,7 @@ public class PlayerTool : MonoBehaviour
                 // Apply damage to the Harvestable.
                 harvestable.RemoveHealth(toolDamage, harvestingTool, harvestingLevel);
                 // Stop the interaction.
-                StopInteract();
+                toolCollider.enabled = false;
             }
         }
     }
@@ -56,10 +57,16 @@ public class PlayerTool : MonoBehaviour
     /// </summary>
     public void Interact()
     {
-        // Set the animation to be true.
-        interactAnimation.SetBool("Chop", true);
-        // Set the collider to be enabled for the tool.
-        toolCollider.enabled = true;
+        
+        if(interacting == false)
+        {
+            Debug.Log("Register");
+            // Set the animation to be true.
+            interactAnimation.SetBool("Chop", true);
+            // Set the collider to be enabled for the tool.
+            interacting = true;
+        }
+        
     }
 
     /// <summary>
@@ -71,5 +78,15 @@ public class PlayerTool : MonoBehaviour
         interactAnimation.SetBool("Chop", false);
         // Set the collider to be disabled for the tool.
         toolCollider.enabled = false;
+    }
+    
+    public void EndInteracting()
+    {
+        Debug.Log("EndInteracting");
+        interacting = false;
+    }
+    public void TurnOnCollider()
+    {
+        toolCollider.enabled = true;
     }
 }
