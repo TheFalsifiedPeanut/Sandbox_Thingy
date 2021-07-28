@@ -12,6 +12,7 @@ public class PlayerTool : MonoBehaviour
     [SerializeField] HarvestingLevel harvestingLevel;
     // The layer to check for when this tool collides with an object on Interactable layer.
     [SerializeField] LayerMask layer;
+    [SerializeField] float chopHeight;
     private bool interacting;
 
     Collider toolCollider;
@@ -55,18 +56,36 @@ public class PlayerTool : MonoBehaviour
     /// <summary>
     /// Set the collider of the tool on.
     /// </summary>
-    public void Interact()
+    public void Interact(GameObject interactTarget)
     {
-        
-        if(interacting == false)
+
+        if (interacting == false)
         {
             Debug.Log("Register");
-            // Set the animation to be true.
-            interactAnimation.SetBool("Chop", true);
-            // Set the collider to be enabled for the tool.
-            interacting = true;
+            Harvestable harvestable = interactTarget.GetComponent<Harvestable>() != null ? interactTarget.GetComponent<Harvestable>() : interactTarget.transform.parent.GetComponent<Harvestable>();
+
+            // Check that that the Harvestable component is not null, this determines if the Interactable is a Harvestable or not..
+            if (harvestable != null)
+            {
+
+
+                // Set the animation to be true.
+                Debug.Log(chopHeight + transform.position.y);
+                Debug.Log(harvestable.transform.position.y < chopHeight + transform.position.y);
+                if (harvestable.transform.position.y < chopHeight + transform.position.y - 1)
+                {
+
+                    interactAnimation.SetBool("DownChop", true);
+                }
+                else
+                {
+                    interactAnimation.SetBool("AcrossChop", true);
+                }
+
+                // Set the collider to be enabled for the tool.
+                interacting = true;
+            }
         }
-        
     }
 
     /// <summary>
@@ -75,11 +94,12 @@ public class PlayerTool : MonoBehaviour
     public void StopInteract()
     {
         // Set the animation to be false.
-        interactAnimation.SetBool("Chop", false);
+        interactAnimation.SetBool("AcrossChop", false);
+        interactAnimation.SetBool("DownChop", false);
         // Set the collider to be disabled for the tool.
         toolCollider.enabled = false;
     }
-    
+
     public void EndInteracting()
     {
         Debug.Log("EndInteracting");

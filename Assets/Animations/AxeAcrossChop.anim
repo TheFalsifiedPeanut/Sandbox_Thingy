@@ -579,7 +579,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 3.3
+  - time: 3.4166667
     functionName: EndInteracting
     data: 
     objectReferenceParameter: {fileID: 0}

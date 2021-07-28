@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    public bool PickedUp;
-
-    private void Start()
+    [SerializeField] private LayerMask layer;
+    [SerializeField] PlayerInventory playerInventory;
+    private void OnTriggerEnter(Collider other)
     {
-        PickedUp = false;
-    }
-
-    public void ItemPickup() 
-    {
-        if(gameObject.tag == "PickupItem")
+        if ((1 << other.gameObject.layer) == layer.value)
         {
-
+            if(other.GetComponent<IInventoryItem>() != null)
+            {
+                playerInventory.AddItem(other.GetComponent<IInventoryItem>(), 1);
+                Destroy(other.gameObject);
+            }
         }
     }
-
-
-
 }

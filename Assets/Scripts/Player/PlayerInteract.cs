@@ -45,7 +45,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (interactionTarget != null)
         {
-            playerTool.Interact();
+            playerTool.Interact(interactionTarget);
         }
     }
 
