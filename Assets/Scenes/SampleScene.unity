@@ -1808,8 +1808,12 @@ MonoBehaviour:
   harvestingLevel: 0
   lootTables:
     tables: []
+    entryTokens: 
   width: 0
   height: 0
+  id: 0
+  itemName: 
+  uiElement: {fileID: 0}
 --- !u!65 &191710002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4763,6 +4767,7 @@ GameObject:
   - component: {fileID: 537741403}
   - component: {fileID: 537741407}
   - component: {fileID: 537741410}
+  - component: {fileID: 537741408}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4937,6 +4942,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1375f99c586818b4d8e8c0eccf31bf89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 537741408}
+--- !u!114 &537741408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537741397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1409351f5793e544c975049716e5beff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UISlot: {fileID: 2690436351061266367, guid: 4a60e0ca0ee852f44ba3e84b31bcc394, type: 3}
+  width: 5
+  height: 4
+  slotWidth: 100
+  slotHeight: 100
+  inventoryParent: {fileID: 33825695}
+  UIItem: {fileID: 141828339603853898, guid: 326e1c6a5feb49e47a561707cfda3aee, type: 3}
 --- !u!114 &537741410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4967,7 +4992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &542994696
 Transform:
   m_ObjectHideFlags: 0
@@ -9265,8 +9290,12 @@ MonoBehaviour:
   harvestingLevel: 0
   lootTables:
     tables: []
+    entryTokens: 
   width: 0
   height: 0
+  id: 0
+  itemName: 
+  uiElement: {fileID: 0}
 --- !u!65 &1087289686
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15583,7 +15612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2047791296
 MonoBehaviour:
   m_ObjectHideFlags: 0

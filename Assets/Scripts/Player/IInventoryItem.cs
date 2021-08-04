@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public interface IInventoryItem
 {
+
+    public Texture2D GetTexture();
+
     /// <summary>
     /// Get the ID of the item.
     /// </summary>

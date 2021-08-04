@@ -214,13 +214,14 @@ public class PlayerInventory : MonoBehaviour
     //}
     #endregion
     [SerializeField]Dictionary<int, int> inventory;
+    [SerializeField]InventoryUI inventoryUI;
     public void AddItem(IInventoryItem item, int count)
     {
         int ID = item.GetID();
         if(!inventory.ContainsKey(ID))
         {
             inventory.Add(ID, count);
-
+            inventoryUI.AddItem(item.GetTexture());
         }
         else
         {

@@ -5,8 +5,12 @@ using UnityEngine;
 public class Item : MonoBehaviour, IInventoryItem
 {
     [SerializeField] int ID;
+    [SerializeField] Texture2D texture;
 
-
+    public Texture2D GetTexture()
+    {
+        return texture;
+    }
     public int GetHeight()
     {
         throw new System.NotImplementedException();
