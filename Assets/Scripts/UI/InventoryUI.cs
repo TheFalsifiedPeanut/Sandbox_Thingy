@@ -2,6 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+public struct UIItemElement
+{
+    private bool state;
+    int id;
+    GameObject item;
+    public UIItemElement(bool state, int id, GameObject item)
+    {
+        this.state = state;
+        this.id = id;
+        this.item = item;
+    }
+
+    public bool GetState()
+    {
+        return state;
+    }
+    public int GetID()
+    {
+        return id;
+    }
+    public GameObject GetItem()
+    {
+        return item;
+    }
+
+}
 
 public class InventoryUI : MonoBehaviour
 {
@@ -11,10 +37,10 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] int slotWidth;
     [SerializeField] int slotHeight;
     [SerializeField] GameObject inventoryParent;
-    bool[] slotState;
     GameObject[] UISlots;
     [SerializeField] GameObject UIItem;
-    GameObject[] UIItems;
+    UIItemElement[] UIItemElements;
+    [SerializeField]PlayerInput PlayerInput;
 
     public void GenerateUI()
     {
@@ -22,42 +48,59 @@ public class InventoryUI : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                Vector2 Slotposition = new Vector2((((i * slotWidth) + (Screen.width / 2)) - (slotWidth * width) / 2) + (width % 2 == 1? 0:(slotWidth / 2) ), ((((-j * slotHeight) + (Screen.height / 2)) + (slotHeight * height) / 2) + (height % 2 == 1 ? 0 : (slotHeight / 2))));
-                UISlots[Convert2DTo1D(new Vector2Int(i,j))] = (Instantiate(UISlot, Slotposition, Quaternion.identity, inventoryParent.transform));
+                Vector2 Slotposition = new Vector2((((i * slotWidth) + (Screen.width / 2)) - (slotWidth * width) / 2) + (width % 2 == 1 ? 0 : (slotWidth / 2)), ((((-j * slotHeight) + (Screen.height / 2)) + (slotHeight * height) / 2) + (height % 2 == 1 ? 0 : (slotHeight / 2))));
+                UISlots[Convert2DTo1D(new Vector2Int(i, j))] = (Instantiate(UISlot, Slotposition, Quaternion.identity, inventoryParent.transform));
             }
         }
     }
     private void Start()
     {
-        slotState = new bool[width * height];
         UISlots = new GameObject[width * height];
-        UIItems = new GameObject[width * height];
+        UIItemElements = new UIItemElement[width * height];
         GenerateUI();
+        PlayerInput.SubscribeToToggleUI(ToggleUI);
     }
 
-    public void AddItem(Texture2D texture) 
+    private void ToggleUI()
     {
-        for (int i = 0; i < slotState.Length; i++)
+        inventoryParent.SetActive(inventoryParent.activeSelf ? false : true);
+    }
+
+    public void AddItem(int ID, Texture2D texture)
+    {
+        for (int i = 0; i < UIItemElements.Length; i++)
         {
-            if(slotState[i] == false)
+            if (UIItemElements[i].GetState() == false)
             {
-                slotState[i] = true;
+
                 Vector2 SlotPosition = Convert1DTo2D(i);
-                 GameObject NewItem =  Instantiate(UIItem, UISlots[i].transform);
+                GameObject NewItem = Instantiate(UIItem, UISlots[i].transform);
                 NewItem.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one);
-                UIItems[i] = NewItem;
+                UIItemElements[i] = new UIItemElement(true, ID, NewItem);
                 return;
             }
         }
     }
+    public void RemoveItem(int ID)
+    {
+        for (int i = 0; i < UIItemElements.Length; i++)
+        {
+            if (UIItemElements[i].GetID() == ID)
+            {
+                Destroy(UIItemElements[i].GetItem());
+                UIItemElements[i] = new UIItemElement(false, 0, null);
+            }
+        }
+    }
+
     private Vector2Int Convert1DTo2D(int i)
     {
         int x = i / height;
         int y = i % height;
-        return new Vector2Int(x,y);
+        return new Vector2Int(x, y);
     }
     private int Convert2DTo1D(Vector2Int position)
     {
         return position.x * height + position.y;
     }
-}
+} 

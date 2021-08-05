@@ -1803,17 +1803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573b5e3f1dfd8a3419ba8ab811a3d6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  harvestingTool: 0
-  harvestingLevel: 0
-  lootTables:
-    tables: []
-    entryTokens: 
-  width: 0
-  height: 0
-  id: 0
-  itemName: 
-  uiElement: {fileID: 0}
 --- !u!65 &191710002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4962,6 +4951,7 @@ MonoBehaviour:
   slotHeight: 100
   inventoryParent: {fileID: 33825695}
   UIItem: {fileID: 141828339603853898, guid: 326e1c6a5feb49e47a561707cfda3aee, type: 3}
+  PlayerInput: {fileID: 537741403}
 --- !u!114 &537741410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9285,17 +9275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573b5e3f1dfd8a3419ba8ab811a3d6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
-  harvestingTool: 2147483647
-  harvestingLevel: 0
-  lootTables:
-    tables: []
-    entryTokens: 
-  width: 0
-  height: 0
-  id: 0
-  itemName: 
-  uiElement: {fileID: 0}
 --- !u!65 &1087289686
 BoxCollider:
   m_ObjectHideFlags: 0

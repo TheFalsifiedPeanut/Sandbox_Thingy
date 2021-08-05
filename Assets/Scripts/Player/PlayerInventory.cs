@@ -221,7 +221,7 @@ public class PlayerInventory : MonoBehaviour
         if(!inventory.ContainsKey(ID))
         {
             inventory.Add(ID, count);
-            inventoryUI.AddItem(item.GetTexture());
+            inventoryUI.AddItem(ID, item.GetTexture());
         }
         else
         {
@@ -236,6 +236,7 @@ public class PlayerInventory : MonoBehaviour
             if(inventory[ID] <= 0 )
             {
                 inventory.Remove(ID);
+                inventoryUI.RemoveItem(ID);
             }
         }
     }
@@ -247,6 +248,10 @@ public class PlayerInventory : MonoBehaviour
             {
                 Debug.Log(keyValuePair);
             }
+        }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            RemoveItem(1, 1);
         }
     }
     private void Update()
