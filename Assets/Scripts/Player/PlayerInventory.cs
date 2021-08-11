@@ -222,10 +222,11 @@ public class PlayerInventory : MonoBehaviour
         {
             inventory.Add(ID, count);
             inventoryUI.AddItem(ID, item.GetTexture());
-        }
+        } 
         else
         {
             inventory[ID] += count;
+            inventoryUI.ModifyAmount(inventory[ID], ID);
         }
     }
     public void RemoveItem(int ID, int count)
@@ -238,6 +239,7 @@ public class PlayerInventory : MonoBehaviour
                 inventory.Remove(ID);
                 inventoryUI.RemoveItem(ID);
             }
+            inventoryUI.ModifyAmount(inventory[ID], ID);
         }
     }
     public void DebugInventory()

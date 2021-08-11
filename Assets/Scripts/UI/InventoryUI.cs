@@ -40,7 +40,7 @@ public class InventoryUI : MonoBehaviour
     GameObject[] UISlots;
     [SerializeField] GameObject UIItem;
     UIItemElement[] UIItemElements;
-    [SerializeField]PlayerInput PlayerInput;
+    [SerializeField] PlayerInput PlayerInput;
 
     public void GenerateUI()
     {
@@ -76,6 +76,7 @@ public class InventoryUI : MonoBehaviour
                 Vector2 SlotPosition = Convert1DTo2D(i);
                 GameObject NewItem = Instantiate(UIItem, UISlots[i].transform);
                 NewItem.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one);
+                NewItem.GetComponentInChildren<Text>().text = "1";
                 UIItemElements[i] = new UIItemElement(true, ID, NewItem);
                 return;
             }
@@ -103,4 +104,15 @@ public class InventoryUI : MonoBehaviour
     {
         return position.x * height + position.y;
     }
-} 
+
+    public void ModifyAmount(int amount, int ID)
+    {
+        for (int i = 0; i < UIItemElements.Length; i++)
+        {
+            if (UIItemElements[i].GetID() == ID)
+            {
+                UIItemElements[i].GetItem().GetComponentInChildren<Text>().text = amount.ToString();
+            }
+        }
+    }
+}
