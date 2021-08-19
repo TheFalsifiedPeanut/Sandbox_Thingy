@@ -40,7 +40,7 @@ public class InventoryUI : MonoBehaviour
     GameObject[] UISlots;
     [SerializeField] GameObject UIItem;
     UIItemElement[] UIItemElements;
-    [SerializeField] PlayerInput PlayerInput;
+    [SerializeField] PlayerInput playerInput;
 
     public void GenerateUI()
     {
@@ -58,12 +58,17 @@ public class InventoryUI : MonoBehaviour
         UISlots = new GameObject[width * height];
         UIItemElements = new UIItemElement[width * height];
         GenerateUI();
-        PlayerInput.SubscribeToToggleUI(ToggleUI);
+        playerInput.SubscribeToToggleUI(ToggleUI);
+        ToggleUI();
     }
 
     private void ToggleUI()
     {
+        playerInput.ToggleLock();
         inventoryParent.SetActive(inventoryParent.activeSelf ? false : true);
+        Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
+
+        Cursor.visible = Cursor.visible ? false : true;
     }
 
     public void AddItem(int ID, Texture2D texture)

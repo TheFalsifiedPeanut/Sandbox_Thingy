@@ -6,6 +6,7 @@
 /// </summary>
 public class PlayerInput : MonoBehaviour
 {
+    private bool LockedInteraction;
     // xPosition is the horizontal axis for movement. For moving left and right.
     // yPostion is the vertical axis for movement. For moving forward and back.
     // xRotation is the mouse Y axis for camera looking. For looking up and down. Rotates camera.
@@ -65,7 +66,10 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="StopInteract"> The function to unsubscribe. </param>
     public void UnSubscribeToStopInteract(Action StopInteract) { this.StopInteract -= StopInteract; }
-
+    public void ToggleLock()
+    {
+        LockedInteraction = LockedInteraction ? false : true;
+    }
     /// <summary>
     /// Get the x axis movement. For moving left and right.
     /// </summary>
@@ -92,6 +96,7 @@ public class PlayerInput : MonoBehaviour
 
     void Start()
     {
+        LockedInteraction = true;
         // Assign the player stats class.
         playerStats = GetComponent<PlayerStats>();
     }
@@ -104,24 +109,26 @@ public class PlayerInput : MonoBehaviour
 
     void Inputs()
     {
-        // The x axis movement amount.
-        xPosition = Input.GetAxis("Horizontal");
-        // The y axis movement amount.
-        zPosition = Input.GetAxis("Vertical");
+        if(!LockedInteraction)
+        {
+            // The x axis movement amount.
+            xPosition = Input.GetAxis("Horizontal");
+            // The y axis movement amount.
+            zPosition = Input.GetAxis("Vertical");
 
-        // The x axis rotation amount multiplied by the sensitivity for that axis.
-        xRotation = Input.GetAxis("Mouse Y") * playerStats.GetLookSensitivityX();
-        // The y axis rotation amount multiplied by the sensitivity for that axis.
-        yRotation = Input.GetAxis("Mouse X") * playerStats.GetLookSensitivityY();
+            // The x axis rotation amount multiplied by the sensitivity for that axis.
+            xRotation = Input.GetAxis("Mouse Y") * playerStats.GetLookSensitivityX();
+            // The y axis rotation amount multiplied by the sensitivity for that axis.
+            yRotation = Input.GetAxis("Mouse X") * playerStats.GetLookSensitivityY();
 
-        // Check for jumping.
-        OnJump();
-        // Check for UI toggling.
+            // Check for jumping.
+            OnJump();
+            // Check for interact.
+            OnInteract();
+            // Check for stop interact.
+            OnStopInteract();
+        }
         OnToggleUI();
-        // Check for interact.
-        OnInteract();
-        // Check for stop interact.
-        OnStopInteract();
     }
 
     /// <summary>
@@ -154,6 +161,10 @@ public class PlayerInput : MonoBehaviour
             {
                 // Calling the ToggleUI action.
                 ToggleUI();
+                xPosition = 0;
+                zPosition = 0;
+                xRotation = 0;
+                yRotation = 0;
             }
         }
 

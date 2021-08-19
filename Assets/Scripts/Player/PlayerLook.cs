@@ -24,11 +24,6 @@ namespace GeorgeProject
             playerStats = GetComponent<PlayerStats>();
             // Assign the Player Inputs class.
             playerInput = GetComponent<PlayerInput>();
-
-            // Lock the cursor to the middle of the screen.
-            Cursor.lockState = CursorLockMode.Locked;
-            // Hide the cursor.
-            Cursor.visible = false;
         }
 
         void Update()

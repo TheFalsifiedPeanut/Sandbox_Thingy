@@ -215,6 +215,14 @@ public class PlayerInventory : MonoBehaviour
     #endregion
     [SerializeField]Dictionary<int, int> inventory;
     [SerializeField]InventoryUI inventoryUI;
+    [SerializeField] CraftingUI craftingUI;
+    [SerializeField] Crafting Crafting;
+
+    public Dictionary<int, int> getInventory()
+    {
+        return inventory;
+    }
+
     public void AddItem(IInventoryItem item, int count)
     {
         int ID = item.GetID();
@@ -228,8 +236,9 @@ public class PlayerInventory : MonoBehaviour
             inventory[ID] += count;
             inventoryUI.ModifyAmount(inventory[ID], ID);
         }
+        craftingUI.SetRecipes(Crafting.GetCraftables());
     }
-    public void RemoveItem(int ID, int count)
+    public void RemoveItem(int ID, int count, bool silent = false)
     {
         if(inventory.ContainsKey(ID))
         {
@@ -240,7 +249,15 @@ public class PlayerInventory : MonoBehaviour
                 inventoryUI.RemoveItem(ID);
             }
             inventoryUI.ModifyAmount(inventory[ID], ID);
+            if(silent == false)
+            {
+                craftingUI.SetRecipes(Crafting.GetCraftables());
+            }
         }
+    }
+    public void UpdateRecipes()
+    {
+        craftingUI.SetRecipes(Crafting.GetCraftables());
     }
     public void DebugInventory()
     {
