@@ -223,7 +223,7 @@ public class PlayerInventory : MonoBehaviour
         return inventory;
     }
 
-    public void AddItem(IInventoryItem item, int count)
+    public void AddItem(IInventoryItem item, int count, bool silent = false)
     {
         int ID = item.GetID();
         if(!inventory.ContainsKey(ID))
@@ -236,7 +236,10 @@ public class PlayerInventory : MonoBehaviour
             inventory[ID] += count;
             inventoryUI.ModifyAmount(inventory[ID], ID);
         }
-        craftingUI.SetRecipes(Crafting.GetCraftables());
+        if(silent == false)
+        {
+            craftingUI.SetRecipes(Crafting.GetCraftables());
+        }
     }
     public void RemoveItem(int ID, int count, bool silent = false)
     {
@@ -248,6 +251,7 @@ public class PlayerInventory : MonoBehaviour
                 inventory.Remove(ID);
                 inventoryUI.RemoveItem(ID);
             }
+            Debug.Log(ID);
             inventoryUI.ModifyAmount(inventory[ID], ID);
             if(silent == false)
             {

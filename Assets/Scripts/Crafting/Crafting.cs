@@ -29,6 +29,8 @@ public struct Recipe
 {
     [SerializeField] string RecipeName;
     [SerializeField] List<RecipeItem> RecipeItems;
+    [SerializeField] int outputID;
+    [SerializeField] int outputCount;
     public string GetName()
     {
         return RecipeName;
@@ -37,11 +39,20 @@ public struct Recipe
     {
         return RecipeItems;
     }
+    public int GetOutputID()
+    {
+        return outputID;
+    }public int GetOutputCount()
+    {
+        return outputCount;
+    }
     
-    public Recipe(string RecipeName, List<RecipeItem> RecipeItems)
+    public Recipe(string RecipeName, List<RecipeItem> RecipeItems, int outputID, int outputCount)
     {
         this.RecipeName = RecipeName;
         this.RecipeItems = RecipeItems;
+        this.outputID = outputID;
+        this.outputCount = outputCount;
     }
 }
 
@@ -49,7 +60,10 @@ public struct Recipe
 public class Crafting : MonoBehaviour
 {
     [SerializeField]List<Recipe> recipes;
+    [SerializeField] List<Item> ItemObjects;
+    List<IInventoryItem> inventoryItems;
     [SerializeField] PlayerInventory playerInventory;
+    [SerializeField, SerializeReference] IInventoryItem test;
     
 
     public List<Recipe> GetCraftables()
@@ -87,11 +101,38 @@ public class Crafting : MonoBehaviour
 
     public void CraftItem(Recipe recipe)
     {
+        Debug.Log("Crafting " + recipe.GetName());
         for (int i = 0; i < recipe.GetRecipeItems().Count; i++)
         {
             playerInventory.RemoveItem(recipe.GetRecipeItems()[i].GetID(), recipe.GetRecipeItems()[i].GetCount(), true);
         }
+        Debug.Log(inventoryItems.Count);
+        IInventoryItem craftedItem = inventoryItems[0];
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            if(inventoryItems[i].GetID() == recipe.GetOutputID())
+            {
+                craftedItem = inventoryItems[i];
+            }
+        }
+        playerInventory.AddItem(craftedItem, recipe.GetOutputCount(), true);
+    }
+
+    public void UpdateRecipes()
+    {
         playerInventory.UpdateRecipes();
+    }
+
+    private void Start()
+    {
+        inventoryItems = new List<IInventoryItem>();
+        for (int i = 0; i < ItemObjects.Count; i++)
+        {
+            if (ItemObjects[i].GetComponent<IInventoryItem>() != null)
+            {
+                inventoryItems.Add(ItemObjects[i].GetComponent<IInventoryItem>());
+            }
+        }
     }
 }
 

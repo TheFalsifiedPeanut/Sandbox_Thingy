@@ -9,7 +9,7 @@ public class CraftingUI : MonoBehaviour
     [SerializeField] ScrollRect CraftingList;
     [SerializeField] Button CraftingRecipe;
     List<Recipe> recipes;
-    
+
     public void SetRecipes(List<Recipe> recipes)
     {
         this.recipes = recipes;
@@ -23,11 +23,12 @@ public class CraftingUI : MonoBehaviour
             Transform itemTransform = CraftingList.content.GetChild(i);
             Destroy(itemTransform.gameObject);
         }
-         
+
         for (int i = 0; i < recipes.Count; i++)
         {
             Button recipeButton = Instantiate(CraftingRecipe, CraftingList.content);
-            recipeButton.onClick += new Button.ButtonClickedEvent(() => crafting.CraftItem(recipes[i]));
+            int index = i;
+            recipeButton.onClick.AddListener(() => crafting.CraftItem(recipes[index]));
             recipeButton.GetComponentInChildren<Text>().text = recipes[i].GetName();
         }
     }
