@@ -7,7 +7,8 @@ using UnityEngine;
 /// </summary>
 public interface IInventoryItem
 {
-
+    public bool InInventory();
+ 
     public Texture2D GetTexture();
 
     /// <summary>

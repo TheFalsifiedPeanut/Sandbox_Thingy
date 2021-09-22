@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTool : MonoBehaviour
+public class PlayerTool : Item
 {
     // The amount of damage the tool will apply to the Harvestable.
     [SerializeField] int toolDamage;

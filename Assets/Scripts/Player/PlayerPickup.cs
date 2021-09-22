@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupItem : MonoBehaviour
+public class PlayerPickup : MonoBehaviour
 {
     [SerializeField] private LayerMask layer;
     [SerializeField] PlayerInventory playerInventory;
@@ -12,8 +12,11 @@ public class PickupItem : MonoBehaviour
         {
             if(other.GetComponent<IInventoryItem>() != null)
             {
-                playerInventory.AddItem(other.GetComponent<IInventoryItem>(), 1);
-                Destroy(other.gameObject);
+                if(other.GetComponent<IInventoryItem>().InInventory() != true)
+                {
+                    playerInventory.AddItem(other.GetComponent<IInventoryItem>(), 1);
+                    Destroy(other.gameObject);
+                }
             }
         }
     }

@@ -1,9 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum ToolType
+{
+    Pickaxe,
+    Axe,
+    Shovel,
+    Flask,
+    Gloves,
+    Hands
+}
+[System.Serializable] 
+public struct ToolID
+{
+    [SerializeField]
+    int ID;
+    [SerializeField]
+    ToolType toolType;
+    public ToolID(int ID, ToolType toolType)
+    {
+        this.ID = ID;
+        this.toolType = toolType;
+    }
+    
+    public int GetID()
+    {
+        return ID;
+    }
+    public ToolType GetToolType()
+    {
+        return toolType;
+    }
+}
 public class Tool : MonoBehaviour
 {
+    
     // The amount of damage this tool does.
     [SerializeField] protected int toolDamage;
     // The cooldown of this tool.

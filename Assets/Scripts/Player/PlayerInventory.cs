@@ -217,6 +217,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]InventoryUI inventoryUI;
     [SerializeField] CraftingUI craftingUI;
     [SerializeField] Crafting Crafting;
+    [SerializeField] int minimumToolID;
+    [SerializeField] int maximumToolID;
+    [SerializeField] ToolBarUI ToolBarUI;
+    [SerializeField] Item assignTools;
 
     public Dictionary<int, int> getInventory()
     {
@@ -225,11 +229,17 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(IInventoryItem item, int count, bool silent = false)
     {
+        
         int ID = item.GetID();
-        if(!inventory.ContainsKey(ID))
+        if(ID >= minimumToolID && ID <= maximumToolID)
+        {
+            ToolBarUI.AddItem(ID, item.GetTexture());
+            return ;
+        }
+        else if(!inventory.ContainsKey(ID))
         {
             inventory.Add(ID, count);
-            inventoryUI.AddItem(ID, item.GetTexture());
+            inventoryUI.AddItem(ID, count, item.GetTexture());
         } 
         else
         {
@@ -241,23 +251,31 @@ public class PlayerInventory : MonoBehaviour
             craftingUI.SetRecipes(Crafting.GetCraftables());
         }
     }
-    public void RemoveItem(int ID, int count, bool silent = false)
+    public bool RemoveItem(int ID, int count, bool silent = false)
     {
         if(inventory.ContainsKey(ID))
         {
+            if(inventory[ID] - count < 0)
+            {
+                return false;
+            }
             inventory[ID] -= count;
             if(inventory[ID] <= 0 )
             {
                 inventory.Remove(ID);
                 inventoryUI.RemoveItem(ID);
             }
-            Debug.Log(ID);
-            inventoryUI.ModifyAmount(inventory[ID], ID);
+            if(inventory.ContainsKey(ID))
+            {
+                inventoryUI.ModifyAmount(inventory[ID], ID);
+            }
             if(silent == false)
             {
                 craftingUI.SetRecipes(Crafting.GetCraftables());
             }
+            return true;
         }
+        return false;
     }
     public void UpdateRecipes()
     {
@@ -284,6 +302,7 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         inventory = new Dictionary<int, int>();
+        AddItem(assignTools, 1, true);
     }
 
 }

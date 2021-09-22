@@ -31,35 +31,23 @@ public struct UIItemElement
 
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] GameObject UISlot;
-    [SerializeField] int width;
     [SerializeField] int height;
-    [SerializeField] int slotWidth;
-    [SerializeField] int slotHeight;
     [SerializeField] GameObject inventoryParent;
-    GameObject[] UISlots;
+    [SerializeField ]GameObject[] UISlots;
     [SerializeField] GameObject UIItem;
     UIItemElement[] UIItemElements;
     [SerializeField] PlayerInput playerInput;
 
-    public void GenerateUI()
+    private void Awake()
     {
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                Vector2 Slotposition = new Vector2((((i * slotWidth) + (Screen.width / 2)) - (slotWidth * width) / 2) + (width % 2 == 1 ? 0 : (slotWidth / 2)), ((((-j * slotHeight) + (Screen.height / 2)) + (slotHeight * height) / 2) + (height % 2 == 1 ? 0 : (slotHeight / 2))));
-                UISlots[Convert2DTo1D(new Vector2Int(i, j))] = (Instantiate(UISlot, Slotposition, Quaternion.identity, inventoryParent.transform));
-            }
-        }
-    }
-    private void Start()
-    {
-        UISlots = new GameObject[width * height];
-        UIItemElements = new UIItemElement[width * height];
-        GenerateUI();
+        //UISlots = new GameObject[width * height];
+        UIItemElements = new UIItemElement[UISlots.Length];
+       //GenerateUI();
         playerInput.SubscribeToToggleUI(ToggleUI);
         ToggleUI();
+        Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
+
+        Cursor.visible = Cursor.visible ? false : true;
     }
 
     private void ToggleUI()
@@ -71,7 +59,7 @@ public class InventoryUI : MonoBehaviour
         Cursor.visible = Cursor.visible ? false : true;
     }
 
-    public void AddItem(int ID, Texture2D texture)
+    public void AddItem(int ID, int count, Texture2D texture)
     {
         for (int i = 0; i < UIItemElements.Length; i++)
         {
@@ -79,9 +67,10 @@ public class InventoryUI : MonoBehaviour
             {
 
                 Vector2 SlotPosition = Convert1DTo2D(i);
+                Debug.Log(UISlots[i]);
                 GameObject NewItem = Instantiate(UIItem, UISlots[i].transform);
                 NewItem.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one);
-                NewItem.GetComponentInChildren<Text>().text = "1";
+                NewItem.GetComponentInChildren<Text>().text = count.ToString();
                 UIItemElements[i] = new UIItemElement(true, ID, NewItem);
                 return;
             }

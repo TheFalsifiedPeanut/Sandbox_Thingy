@@ -104,7 +104,11 @@ public class Crafting : MonoBehaviour
         Debug.Log("Crafting " + recipe.GetName());
         for (int i = 0; i < recipe.GetRecipeItems().Count; i++)
         {
-            playerInventory.RemoveItem(recipe.GetRecipeItems()[i].GetID(), recipe.GetRecipeItems()[i].GetCount(), true);
+            if(!playerInventory.RemoveItem(recipe.GetRecipeItems()[i].GetID(), recipe.GetRecipeItems()[i].GetCount(), true))
+            {
+                return;
+            }
+            
         }
         Debug.Log(inventoryItems.Count);
         IInventoryItem craftedItem = inventoryItems[0];
@@ -115,7 +119,7 @@ public class Crafting : MonoBehaviour
                 craftedItem = inventoryItems[i];
             }
         }
-        playerInventory.AddItem(craftedItem, recipe.GetOutputCount(), true);
+        playerInventory.AddItem(craftedItem, recipe.GetOutputCount());
     }
 
     public void UpdateRecipes()

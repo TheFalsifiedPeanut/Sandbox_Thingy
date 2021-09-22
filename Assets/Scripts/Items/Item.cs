@@ -6,7 +6,12 @@ public class Item : MonoBehaviour, IInventoryItem
 {
     [SerializeField] int ID;
     [SerializeField] Texture2D texture;
+    [SerializeField] bool inInventory;
 
+    public bool InInventory()
+    {
+        return inInventory;
+    }
     public Texture2D GetTexture()
     {
         return texture;
