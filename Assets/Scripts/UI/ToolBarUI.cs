@@ -17,7 +17,7 @@ public class ToolBarUI : MonoBehaviour
         UISlotState = new Dictionary<ToolType, UIItemElement>();
         UISlotState.Add(ToolType.Pickaxe, new UIItemElement());
         UISlotState.Add(ToolType.Shovel, new UIItemElement());
-        UISlotState.Add(ToolType.Hands, new UIItemElement());
+        UISlotState.Add(ToolType.Shears, new UIItemElement());
         UISlotState.Add(ToolType.Gloves, new UIItemElement());
         UISlotState.Add(ToolType.Flask, new UIItemElement());
         UISlotState.Add(ToolType.Axe, new UIItemElement());
@@ -28,7 +28,8 @@ public class ToolBarUI : MonoBehaviour
         {
             if (ID == toolIDs[j].GetID())
             {
-                GameObject NewItem = Instantiate(UIItem, UISlots[j].transform);
+                GameObject NewItem = Instantiate(UIItem, UISlots[(int)toolIDs[j].GetToolType()].transform);
+                Destroy(UISlotState[toolIDs[j].GetToolType()].GetItem());
                 NewItem.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one);
                 UISlotState[toolIDs[j].GetToolType()] = new UIItemElement(true, ID, NewItem);
             }

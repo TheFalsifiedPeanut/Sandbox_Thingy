@@ -59,12 +59,11 @@ public struct Recipe
 
 public class Crafting : MonoBehaviour
 {
-    [SerializeField]List<Recipe> recipes;
+    [SerializeField] List<Recipe> recipes;
     [SerializeField] List<Item> ItemObjects;
-    List<IInventoryItem> inventoryItems;
     [SerializeField] PlayerInventory playerInventory;
     [SerializeField, SerializeReference] IInventoryItem test;
-    
+
 
     public List<Recipe> GetCraftables()
     {
@@ -73,7 +72,7 @@ public class Crafting : MonoBehaviour
         {
             for (int i = 0; i < recipes.Count; i++)
             {
-                if(!Craftables.Contains(recipes[i]))
+                if (!Craftables.Contains(recipes[i]))
                 {
                     for (int j = 0; j < recipes[i].GetRecipeItems().Count; j++)
                     {
@@ -104,19 +103,19 @@ public class Crafting : MonoBehaviour
         Debug.Log("Crafting " + recipe.GetName());
         for (int i = 0; i < recipe.GetRecipeItems().Count; i++)
         {
-            if(!playerInventory.RemoveItem(recipe.GetRecipeItems()[i].GetID(), recipe.GetRecipeItems()[i].GetCount(), true))
+            if (!playerInventory.RemoveItem(recipe.GetRecipeItems()[i].GetID(), recipe.GetRecipeItems()[i].GetCount(), true))
             {
                 return;
             }
-            
+
         }
-        Debug.Log(inventoryItems.Count);
-        IInventoryItem craftedItem = inventoryItems[0];
-        for (int i = 0; i < inventoryItems.Count; i++)
+        Debug.Log(ItemObjects.Count);
+        Item craftedItem = ItemObjects[0];
+        for (int i = 0; i < ItemObjects.Count; i++)
         {
-            if(inventoryItems[i].GetID() == recipe.GetOutputID())
+            if (ItemObjects[i].GetID() == recipe.GetOutputID())
             {
-                craftedItem = inventoryItems[i];
+                craftedItem = ItemObjects[i];
             }
         }
         playerInventory.AddItem(craftedItem, recipe.GetOutputCount());
@@ -129,14 +128,7 @@ public class Crafting : MonoBehaviour
 
     private void Start()
     {
-        inventoryItems = new List<IInventoryItem>();
-        for (int i = 0; i < ItemObjects.Count; i++)
-        {
-            if (ItemObjects[i].GetComponent<IInventoryItem>() != null)
-            {
-                inventoryItems.Add(ItemObjects[i].GetComponent<IInventoryItem>());
-            }
-        }
+
     }
 }
 

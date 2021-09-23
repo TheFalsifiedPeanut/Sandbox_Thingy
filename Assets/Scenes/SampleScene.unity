@@ -4912,7 +4912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0f1e1518a80e562458930d8b2d0670d9, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0f1e1518a80e562458930d8b2d0670d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4920,7 +4920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0f1e1518a80e562458930d8b2d0670d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.36911148
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0f1e1518a80e562458930d8b2d0670d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5647,10 +5647,10 @@ MonoBehaviour:
   - {fileID: 1573267227}
   UIItem: {fileID: 141828339603853898, guid: 326e1c6a5feb49e47a561707cfda3aee, type: 3}
   toolIDs:
-  - ID: 200
-    toolType: 1
   - ID: 201
-    toolType: 1
+    toolType: 0
+  - ID: 200
+    toolType: 0
 --- !u!114 &537741410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7415,7 +7415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 55f94b3dfaaba26458dbf470efc8cfa4, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 55f94b3dfaaba26458dbf470efc8cfa4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7423,7 +7423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 55f94b3dfaaba26458dbf470efc8cfa4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.50744677
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 55f94b3dfaaba26458dbf470efc8cfa4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12890,6 +12890,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   chopHeight: 0.9
+  toolID:
+    ID: 0
+    toolType: 0
 --- !u!23 &1370805437
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15093,7 +15096,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 977e7278d3486f1489724a6d226b9ca0, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 977e7278d3486f1489724a6d226b9ca0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15101,7 +15104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 977e7278d3486f1489724a6d226b9ca0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.85437167
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 977e7278d3486f1489724a6d226b9ca0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18433,7 +18436,8 @@ GameObject:
   - component: {fileID: 2014569538}
   - component: {fileID: 2014569537}
   - component: {fileID: 2014569536}
-  m_Layer: 0
+  - component: {fileID: 2014569542}
+  m_Layer: 7
   m_Name: Sharpened Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18462,6 +18466,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   chopHeight: 0.9
+  toolID:
+    ID: 201
+    toolType: 0
 --- !u!65 &2014569537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18471,7 +18478,7 @@ BoxCollider:
   m_GameObject: {fileID: 2014569535}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.14, y: -0.1, z: 0.2}
   m_Center: {x: 0.29, y: -0.0000000059614957, z: -0.0000000014942354}
@@ -18558,6 +18565,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!54 &2014569542
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014569535}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2016189024 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2690436351061266367, guid: 4a60e0ca0ee852f44ba3e84b31bcc394, type: 3}

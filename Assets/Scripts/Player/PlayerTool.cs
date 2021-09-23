@@ -2,6 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ToolType
+{
+    Axe = 0,
+    Pickaxe = 1,
+    Shovel = 2,
+    Flask = 3,
+    Gloves = 4,
+    Shears = 5
+}
+[System.Serializable]
+public struct ToolID
+{
+    [SerializeField]
+    int ID;
+    [SerializeField]
+    ToolType toolType;
+    public ToolID(int ID, ToolType toolType)
+    {
+        this.ID = ID;
+        this.toolType = toolType;
+    }
+
+    public int GetID()
+    {
+        return ID;
+    }
+    public ToolType GetToolType()
+    {
+        return toolType;
+    }
+}
+
+
 public class PlayerTool : Item
 {
     // The amount of damage the tool will apply to the Harvestable.
@@ -14,6 +47,12 @@ public class PlayerTool : Item
     [SerializeField] LayerMask layer;
     [SerializeField] float chopHeight;
     private bool interacting;
+    [SerializeField] ToolID toolID;
+    
+    public ToolID GetToolID()
+    {
+        return toolID;
+    }
 
     Collider toolCollider;
     Animator interactAnimation;

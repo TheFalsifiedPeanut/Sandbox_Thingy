@@ -14,7 +14,7 @@ public class PlayerPickup : MonoBehaviour
             {
                 if(other.GetComponent<IInventoryItem>().InInventory() != true)
                 {
-                    playerInventory.AddItem(other.GetComponent<IInventoryItem>(), 1);
+                    playerInventory.AddItem(other.GetComponent<Item>(), 1);
                     Destroy(other.gameObject);
                 }
             }

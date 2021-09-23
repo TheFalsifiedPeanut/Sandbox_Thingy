@@ -221,20 +221,26 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] int maximumToolID;
     [SerializeField] ToolBarUI ToolBarUI;
     [SerializeField] Item assignTools;
+    [SerializeField] Dictionary<ToolType, int> tools;
 
     public Dictionary<int, int> getInventory()
     {
         return inventory;
     }
+    
 
-    public void AddItem(IInventoryItem item, int count, bool silent = false)
+    public void AddItem(Item item, int count, bool silent = false)
     {
         
         int ID = item.GetID();
-        if(ID >= minimumToolID && ID <= maximumToolID)
+        if (item.GetComponent<PlayerTool>())
         {
-            ToolBarUI.AddItem(ID, item.GetTexture());
-            return ;
+            if(ID > tools[item.GetComponent<PlayerTool>().GetToolID().GetToolType()])
+            {
+                ToolBarUI.AddItem(ID, item.GetTexture());
+                return;
+            }
+           
         }
         else if(!inventory.ContainsKey(ID))
         {
@@ -302,6 +308,13 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         inventory = new Dictionary<int, int>();
+        tools = new Dictionary<ToolType, int>();
+        tools.Add(ToolType.Axe, -1);
+        tools.Add(ToolType.Pickaxe, -1);
+        tools.Add(ToolType.Shovel, -1);
+        tools.Add(ToolType.Flask, -1);
+        tools.Add(ToolType.Gloves, -1);
+        tools.Add(ToolType.Shears, -1);
         AddItem(assignTools, 1, true);
     }
 
