@@ -63,8 +63,9 @@ public class Harvestable : MonoBehaviour
     public virtual void RemoveHealth(int amount, HarvestingTool harvestingTool, HarvestingLevel harvestingLevel)
     {
         // Check if the correct tool is being used. It's designed so some tools can be used in multiple ways and that some resources can be harvest by different tools.
-        if (harvestingTool.HasFlag(harvestingTool))
+        if (this.harvestingTool.HasFlag(harvestingTool))
         {
+            Debug.Log("Harvestable");
             // Check if the tool level used is high enough.
             if (this.harvestingLevel <= harvestingLevel)
             {

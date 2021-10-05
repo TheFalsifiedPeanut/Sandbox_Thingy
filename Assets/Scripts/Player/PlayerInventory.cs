@@ -222,6 +222,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] ToolBarUI ToolBarUI;
     [SerializeField] Item assignTools;
     [SerializeField] Dictionary<ToolType, int> tools;
+    [SerializeField] PlayerInteract playerInteract;
 
     public Dictionary<int, int> getInventory()
     {
@@ -238,17 +239,20 @@ public class PlayerInventory : MonoBehaviour
             if(ID > tools[item.GetComponent<PlayerTool>().GetToolID().GetToolType()])
             {
                 ToolBarUI.AddItem(ID, item.GetTexture());
+                playerInteract.SetPlayerTool(item.gameObject);
                 return;
             }
            
         }
         else if(!inventory.ContainsKey(ID))
         {
+            Destroy(item.gameObject);
             inventory.Add(ID, count);
             inventoryUI.AddItem(ID, count, item.GetTexture());
         } 
         else
         {
+            Destroy(item.gameObject);
             inventory[ID] += count;
             inventoryUI.ModifyAmount(inventory[ID], ID);
         }
@@ -315,7 +319,7 @@ public class PlayerInventory : MonoBehaviour
         tools.Add(ToolType.Flask, -1);
         tools.Add(ToolType.Gloves, -1);
         tools.Add(ToolType.Shears, -1);
-        AddItem(assignTools, 1, true);
+        //AddItem(assignTools, 1, true);
     }
 
 }

@@ -17,6 +17,7 @@ public class PlayerInteract : MonoBehaviour
     PlayerInput playerInput;
     // The Player Inventory.
     PlayerInventory playerInventory;
+    [SerializeField] LayerMask layer;
 
     /// <summary>
     /// Get the current Interaction Target.
@@ -37,6 +38,9 @@ public class PlayerInteract : MonoBehaviour
         playerInput.SubscribeToInteract(OnInteract);
         //playerInput.SubscribeToStopInteract(OnStopInteract);
     }
+    private void Update()
+    {
+    }
 
     /// <summary>
     /// When the player is clicking to interact.
@@ -45,6 +49,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (interactionTarget != null)
         {
+            Debug.Log("OnInteract");
             playerTool.Interact(interactionTarget);
         }
     }
@@ -55,5 +60,27 @@ public class PlayerInteract : MonoBehaviour
     public void OnStopInteract()
     {
         playerTool.StopInteract();
+    }
+
+    public void SetPlayerTool(GameObject tool) 
+    {
+        if(playerTool)
+        {
+            Destroy(playerTool.gameObject);
+        }
+
+        if(tool.GetComponent<PlayerTool>() != null)
+        {
+            tool.layer = 0;
+            playerTool = tool.GetComponent<PlayerTool>();
+            
+            Debug.Log("pankake");
+            //tool.transform.position = gameObject.transform.position + playerTool.GetHandPosition();
+            tool.gameObject.transform.position = Vector3.zero;
+            tool.transform.localRotation = Quaternion.Euler(playerTool.GetHandRotation());
+            tool.transform.localScale = playerTool.GetHandScale();
+            //tool.transform.SetParent(gameObject.transform, false);
+            
+        }
     }
 }

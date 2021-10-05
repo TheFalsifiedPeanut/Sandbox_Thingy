@@ -48,10 +48,23 @@ public class PlayerTool : Item
     [SerializeField] float chopHeight;
     private bool interacting;
     [SerializeField] ToolID toolID;
+    [SerializeField] Vector3 handPosition;
+    [SerializeField] Vector3 handRotation;
+    [SerializeField] Vector3 handScale;
     
     public ToolID GetToolID()
     {
         return toolID;
+    }
+    public Vector3 GetHandPosition()
+    {
+        return handPosition;
+    }public Vector3 GetHandRotation()
+    {
+        return handRotation;
+    }public Vector3 GetHandScale()
+    {
+        return handScale;
     }
 
     Collider toolCollider;
