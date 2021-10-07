@@ -62,6 +62,7 @@ public class Harvestable : MonoBehaviour
     /// <param name="harvestingLevel"> The level of the tool used. </param>
     public virtual void RemoveHealth(int amount, HarvestingTool harvestingTool, HarvestingLevel harvestingLevel)
     {
+        Debug.Log("RemoveHealth");
         // Check if the correct tool is being used. It's designed so some tools can be used in multiple ways and that some resources can be harvest by different tools.
         if (this.harvestingTool.HasFlag(harvestingTool))
         {

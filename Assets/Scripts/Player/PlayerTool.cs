@@ -56,10 +56,11 @@ public class PlayerTool : Item
     {
         return toolID;
     }
-    public Vector3 GetHandPosition()
+    public void GetHandPosition()
     {
-        return handPosition;
-    }public Vector3 GetHandRotation()
+        transform.position = handPosition;
+    }
+    public Vector3 GetHandRotation()
     {
         return handRotation;
     }public Vector3 GetHandScale()
@@ -91,12 +92,14 @@ public class PlayerTool : Item
         // Check the object the tool collided with is on the Interactable layer.
         if ((1 << other.gameObject.layer) == layer.value)
         {
+            Debug.Log(other.gameObject);
             // Cache the Harvestable componenet.
             Harvestable harvestable = other.transform.GetComponent<Harvestable>() != null ? other.transform.GetComponent<Harvestable>() : other.transform.GetComponentInParent<Harvestable>();
 
             // Check that that the Harvestable component is not null, this determines if the Interactable is a Harvestable or not..
             if (harvestable != null)
             {
+                Debug.Log("layer");
                 // Apply damage to the Harvestable.
                 harvestable.RemoveHealth(toolDamage, harvestingTool, harvestingLevel);
                 // Stop the interaction.
@@ -122,8 +125,6 @@ public class PlayerTool : Item
 
 
                 // Set the animation to be true.
-                Debug.Log(chopHeight + transform.position.y);
-                Debug.Log(harvestable.transform.position.y < chopHeight + transform.position.y);
                 if (harvestable.transform.position.y < chopHeight + transform.position.y - 1)
                 {
 

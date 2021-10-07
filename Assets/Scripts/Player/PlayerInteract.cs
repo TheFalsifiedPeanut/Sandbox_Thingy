@@ -76,10 +76,10 @@ public class PlayerInteract : MonoBehaviour
             
             Debug.Log("pankake");
             //tool.transform.position = gameObject.transform.position + playerTool.GetHandPosition();
-            tool.gameObject.transform.position = Vector3.zero;
+            playerTool.GetHandPosition();
             tool.transform.localRotation = Quaternion.Euler(playerTool.GetHandRotation());
             tool.transform.localScale = playerTool.GetHandScale();
-            //tool.transform.SetParent(gameObject.transform, false);
+            tool.transform.SetParent(gameObject.transform, false);
             
         }
     }

@@ -513,7 +513,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8039015624515561875}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2.034988
@@ -914,6 +914,10 @@ MonoBehaviour:
         max: 6
         weight: 1
         droppable: {fileID: 8706275146343993553, guid: 5f952db3332cfa849b0488e36f23e231, type: 3}
+      - min: 2
+        max: 4
+        weight: 1
+        droppable: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
     - weight: 99
       numberOfRolls: 0
       randomEntries: []
@@ -926,6 +930,10 @@ MonoBehaviour:
         max: 1
         weight: 1
         droppable: {fileID: 9033091003229355298, guid: c3ca10e309789aa4a97eb03097b26f54, type: 3}
+      - min: 1
+        max: 3
+        weight: 1
+        droppable: {fileID: 6763749106096926723, guid: 753657edff57ffa4388989e376da667a, type: 3}
   harvestSpawnRadius: 1
   standingHealth: 3
   pushoverForce: 1
