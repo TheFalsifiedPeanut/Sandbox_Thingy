@@ -56,9 +56,9 @@ public class PlayerTool : Item
     {
         return toolID;
     }
-    public void GetHandPosition()
+    public Vector3 GetHandPosition()
     {
-        transform.position = handPosition;
+        return handPosition;
     }
     public Vector3 GetHandRotation()
     {
@@ -161,5 +161,13 @@ public class PlayerTool : Item
     public void TurnOnCollider()
     {
         toolCollider.enabled = true;
+    }
+    public void DisableAnimator()
+    {
+        GetComponent<Animator>().enabled = false;
+    }
+    public void EnableAnimator()
+    {
+        GetComponent<Animator>().enabled = true;
     }
 }

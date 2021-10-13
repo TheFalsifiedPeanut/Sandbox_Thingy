@@ -18,6 +18,7 @@ public class PlayerInteract : MonoBehaviour
     // The Player Inventory.
     PlayerInventory playerInventory;
     [SerializeField] LayerMask layer;
+    private bool animatorStatus;
 
     /// <summary>
     /// Get the current Interaction Target.
@@ -40,6 +41,11 @@ public class PlayerInteract : MonoBehaviour
     }
     private void Update()
     {
+        if (animatorStatus)
+        {
+            playerTool.EnableAnimator();
+            animatorStatus = false;
+        }
     }
 
     /// <summary>
@@ -76,11 +82,14 @@ public class PlayerInteract : MonoBehaviour
             
             Debug.Log("pankake");
             //tool.transform.position = gameObject.transform.position + playerTool.GetHandPosition();
+            tool.transform.SetParent(gameObject.transform, false);
+            playerTool.DisableAnimator();
             playerTool.GetHandPosition();
+            playerTool.transform.localPosition = playerTool.GetHandPosition();
             tool.transform.localRotation = Quaternion.Euler(playerTool.GetHandRotation());
             tool.transform.localScale = playerTool.GetHandScale();
-            tool.transform.SetParent(gameObject.transform, false);
-            
+            //animatorStatus = true;
         }
+
     }
 }
