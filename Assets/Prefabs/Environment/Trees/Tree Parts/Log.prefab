@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
-  harvestingTool: 1
+  harvestingTool: 2
   harvestingLevel: 0
   lootTables:
     tables:

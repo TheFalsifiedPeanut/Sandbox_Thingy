@@ -89,13 +89,15 @@ public class PlayerTool : Item
     /// <param name="other"> The collider the tool hit. </param>
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log(1 << other.gameObject.layer);
+        Debug.Log(layer.value);
         // Check the object the tool collided with is on the Interactable layer.
         if ((1 << other.gameObject.layer) == layer.value)
         {
             Debug.Log(other.gameObject);
             // Cache the Harvestable componenet.
             Harvestable harvestable = other.transform.GetComponent<Harvestable>() != null ? other.transform.GetComponent<Harvestable>() : other.transform.GetComponentInParent<Harvestable>();
-
+            Debug.Log(other.transform.GetComponent<Harvestable>().gameObject);
             // Check that that the Harvestable component is not null, this determines if the Interactable is a Harvestable or not..
             if (harvestable != null)
             {
@@ -125,6 +127,7 @@ public class PlayerTool : Item
 
 
                 // Set the animation to be true.
+                interactAnimation.enabled = true;
                 if (harvestable.transform.position.y < chopHeight + transform.position.y - 1)
                 {
 
@@ -132,6 +135,7 @@ public class PlayerTool : Item
                 }
                 else
                 {
+
                     interactAnimation.SetBool("AcrossChop", true);
                 }
 
@@ -146,6 +150,7 @@ public class PlayerTool : Item
     /// </summary>
     public void StopInteract()
     {
+        interactAnimation.enabled = false;
         // Set the animation to be false.
         interactAnimation.SetBool("AcrossChop", false);
         interactAnimation.SetBool("DownChop", false);
@@ -155,6 +160,7 @@ public class PlayerTool : Item
 
     public void EndInteracting()
     {
+        interactAnimation.enabled = false;
         Debug.Log("EndInteracting");
         interacting = false;
     }

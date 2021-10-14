@@ -64,6 +64,8 @@ public class Harvestable : MonoBehaviour
     {
         Debug.Log("RemoveHealth");
         // Check if the correct tool is being used. It's designed so some tools can be used in multiple ways and that some resources can be harvest by different tools.
+        Debug.Log(harvestingTool);
+        Debug.Log(this.harvestingTool);
         if (this.harvestingTool.HasFlag(harvestingTool))
         {
             Debug.Log("Harvestable");
