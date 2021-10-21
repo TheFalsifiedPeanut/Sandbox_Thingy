@@ -12,12 +12,14 @@ public struct LootTables
     /// <summary>
     /// Initialise the loot table system.
     /// </summary>
-    public void Initialise()
+    public void Initialise(GameObject callingObject)
     {
+        
         entryTokens = new List<int>();
 
         for (int i = 0; i < tables.Count; i++)
         {
+            Debug.Log("Initializing " + callingObject.name);
             // Set the ID of the table.
             tables[i].SetID(i);
             tables[i].Initialise();

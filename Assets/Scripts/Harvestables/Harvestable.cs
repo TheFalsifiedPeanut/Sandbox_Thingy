@@ -62,13 +62,12 @@ public class Harvestable : MonoBehaviour
     /// <param name="harvestingLevel"> The level of the tool used. </param>
     public virtual void RemoveHealth(int amount, HarvestingTool harvestingTool, HarvestingLevel harvestingLevel)
     {
-        Debug.Log("RemoveHealth");
+        Debug.Log("Health Lowered!");
         // Check if the correct tool is being used. It's designed so some tools can be used in multiple ways and that some resources can be harvest by different tools.
         Debug.Log(harvestingTool);
         Debug.Log(this.harvestingTool);
         if (this.harvestingTool.HasFlag(harvestingTool))
         {
-            Debug.Log("Harvestable");
             // Check if the tool level used is high enough.
             if (this.harvestingLevel <= harvestingLevel)
             {
@@ -106,7 +105,8 @@ public class Harvestable : MonoBehaviour
     protected virtual void Start()
     {
         // Initialise the loot tables.
-        lootTables.Initialise();
+        Debug.Log(gameObject.name);
+        lootTables.Initialise(gameObject);
     }
 
     #region Harvesting

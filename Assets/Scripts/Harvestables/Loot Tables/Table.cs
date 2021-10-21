@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct Table
+public class Table
 {
     // Weight handles the likeliness of a entry being selected. NumberOfRolls handle the amount of times to select from the pool.
     [SerializeField] int weight, numberOfRolls;
@@ -68,11 +68,12 @@ public struct Table
         List<TableEntry> results = guaranteedEntries;
         // Get the number of times to roll for entries.
         int rollCount = numberOfRolls >= randomEntries.Count ? randomEntries.Count : numberOfRolls;
-
+        
         // For the number of rolls, select token from pool.
         for (int i = 0; i < rollCount; i++)
         {
             // Get a random value for indexing the pool.
+            Debug.Log(entryTokens);
             int randomIndex = Random.Range(0, entryTokens.Count);
             // Get the ID of a random entry.
             int randomID = entryTokens[randomIndex];

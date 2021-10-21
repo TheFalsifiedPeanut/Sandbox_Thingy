@@ -97,7 +97,7 @@ public class PlayerTool : Item
             Debug.Log(other.gameObject);
             // Cache the Harvestable componenet.
             Harvestable harvestable = other.transform.GetComponent<Harvestable>() != null ? other.transform.GetComponent<Harvestable>() : other.transform.GetComponentInParent<Harvestable>();
-            Debug.Log(other.transform.GetComponent<Harvestable>().gameObject);
+            //TO DO: FIX NULLS.
             // Check that that the Harvestable component is not null, this determines if the Interactable is a Harvestable or not..
             if (harvestable != null)
             {

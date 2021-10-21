@@ -213,8 +213,8 @@ public class PlayerInventory : MonoBehaviour
     //    return -1;
     //}
     #endregion
-    [SerializeField]Dictionary<int, int> inventory;
-    [SerializeField]InventoryUI inventoryUI;
+    [SerializeField] Dictionary<int, int> inventory;
+    [SerializeField] InventoryUI inventoryUI;
     [SerializeField] CraftingUI craftingUI;
     [SerializeField] Crafting Crafting;
     [SerializeField] int minimumToolID;
@@ -228,60 +228,76 @@ public class PlayerInventory : MonoBehaviour
     {
         return inventory;
     }
-    
+
 
     public void AddItem(Item item, int count, bool silent = false)
     {
-        
-        int ID = item.GetID();
-        if (item.GetComponent<PlayerTool>())
+        if (item != null)
         {
-            if(ID > tools[item.GetComponent<PlayerTool>().GetToolID().GetToolType()])
+            int ID = item.GetID();
+            if (item.GetComponent<PlayerTool>())
             {
-                ToolBarUI.AddItem(ID, item.GetTexture());
-                playerInteract.SetPlayerTool(item.gameObject);
-                return;
+                if (ID > tools[item.GetComponent<PlayerTool>().GetToolID().GetToolType()])
+                {
+                    ToolBarUI.AddItem(ID, item.GetTexture());
+                    playerInteract.SetPlayerTool(item.gameObject);
+                    return;
+                }
+
             }
-           
-        }
-        else if(!inventory.ContainsKey(ID))
-        {
-            Destroy(item.gameObject);
-            inventory.Add(ID, count);
-            inventoryUI.AddItem(ID, count, item.GetTexture());
-        } 
-        else
-        {
-            Destroy(item.gameObject);
-            inventory[ID] += count;
-            inventoryUI.ModifyAmount(inventory[ID], ID);
-        }
-        if(silent == false)
-        {
-            craftingUI.SetRecipes(Crafting.GetCraftables());
+            else if (!inventory.ContainsKey(ID))
+            {
+                Destroy(item.gameObject);
+                inventory.Add(ID, count);
+                inventoryUI.AddItem(ID, count, item.GetTexture());
+            }
+            else
+            {
+                Destroy(item.gameObject);
+                inventory[ID] += count;
+                inventoryUI.ModifyAmount(inventory[ID], ID);
+            }
+            if (silent == false)
+            {
+                craftingUI.SetRecipes(Crafting.GetCraftables());
+            }
         }
     }
-    public bool RemoveItem(int ID, int count, bool silent = false)
+    public void RemoveItem(int ID, int count, bool silent = false)
     {
-        if(inventory.ContainsKey(ID))
+        if (CanRemoveItem(ID, count))
         {
-            if(inventory[ID] - count < 0)
-            {
-                return false;
-            }
             inventory[ID] -= count;
-            if(inventory[ID] <= 0 )
+            if (inventory[ID] <= 0)
             {
                 inventory.Remove(ID);
                 inventoryUI.RemoveItem(ID);
             }
-            if(inventory.ContainsKey(ID))
+            if (inventory.ContainsKey(ID))
             {
                 inventoryUI.ModifyAmount(inventory[ID], ID);
             }
-            if(silent == false)
+            if (silent == false)
             {
                 craftingUI.SetRecipes(Crafting.GetCraftables());
+            }
+        }
+    }
+    /// <summary>
+    /// Checks if you can remove an Item.
+    /// </summary>
+    /// <param name="ID">ID of the item to remove</param>
+    /// <param name="count">The number of the item to remove</param>
+    /// <returns>If it can successfully remove.</returns>
+    public bool CanRemoveItem(int ID, int count)
+    {
+        //Checks If ID exists in inventory.
+        if (inventory.ContainsKey(ID))
+        {
+            //Checks if we have enough of the item.
+            if (inventory[ID] - count < 0)
+            {
+                return false;
             }
             return true;
         }
@@ -293,14 +309,14 @@ public class PlayerInventory : MonoBehaviour
     }
     public void DebugInventory()
     {
-        if(Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             foreach (KeyValuePair<int, int> keyValuePair in inventory)
             {
                 Debug.Log(keyValuePair);
             }
         }
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             RemoveItem(1, 1);
         }
@@ -321,5 +337,4 @@ public class PlayerInventory : MonoBehaviour
         tools.Add(ToolType.Shears, -1);
         //AddItem(assignTools, 1, true);
     }
-
 }

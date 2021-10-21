@@ -47,7 +47,7 @@ public class Tree : RadiusHarvestable
         base.Start();
 
         // Initialise the secondary loot tables.
-        standingLootTables.Initialise();
+        standingLootTables.Initialise(gameObject);
     }
 
     /// <summary>
