@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GeorgeProject;
-using DitzelGames.FastIK;
 
 /// <summary>
-/// A script used for all interactions.
+/// A script used for interactions that concerns objects.
 /// </summary>
 public class PlayerInteract : MonoBehaviour
 {
+    #region Variables
     /// <summary>
-    /// The current tool. Serialised to the inspector so we can see it.
+    /// The current tool.
     /// </summary>
     [SerializeField] PlayerTool playerTool;
     /// <summary>
@@ -22,51 +21,68 @@ public class PlayerInteract : MonoBehaviour
     /// </summary>
     [SerializeField] GameObject interactionTarget;
     /// <summary>
-    /// The Player Input.
+    /// Specifies an interaction layer.
+    /// </summary>
+    [SerializeField] LayerMask layer;
+
+    /// <summary>
+    /// A reference to the PlayerInput script.
     /// </summary>
     PlayerInput playerInput;
     /// <summary>
-    /// The Player Inventory.
+    /// A reference to the PlayerInventory script.
     /// </summary>
     PlayerInventory playerInventory;
-    /// <summary>
-    /// Specifies a layer.
-    /// </summary>
-    [SerializeField] LayerMask layer;
+
     /// <summary>
     /// Turns the animator on and off
     /// </summary>
-    private bool animatorStatus;
+    bool animatorStatus;
+    #endregion
 
+    #region Getters
     /// <summary>
     /// Get the current Interaction Target.
     /// </summary>
     /// <returns> Returns the Interaction Target. </returns>
-    public GameObject GetInteractionTarget() { return interactionTarget; }
+    public GameObject GetInteractionTarget() 
+    { 
+        return interactionTarget; 
+    }
+    #endregion
 
+    #region Setters
     /// <summary>
-    /// Set the current Interaction Target to the specified object.
+    /// Sets the current Interaction Target to the specified object.
     /// </summary>
     /// <param name="interactionTarget"> The object to set. </param>
     public void SetInteractionTarget(GameObject interactionTarget) { this.interactionTarget = interactionTarget; }
+    #endregion
+
     void Start()
     {
-       
+        //Fetches PlayerInput and asignes it to PlayerInput.
         playerInput = GetComponent<PlayerInput>();
         //Fetches PlayerInventory and asignes it to playerInventory.
         playerInventory = GetComponent<PlayerInventory>();
-        //- Runs OnInteract
+        //Listens for interaction events. Activates OnInteract when an events happens.
         playerInput.SubscribeToInteract(OnInteract);
+
+
         //playerInput.SubscribeToStopInteract(OnStopInteract);
     }
     private void Update()
+    {
+        AnimatorUpdate();
+    }
+    void AnimatorUpdate()
     {
         //Checks the animator's status for if it is true
         if (animatorStatus)
         {
             //enables the animator.
             playerTool.EnableAnimator();
-            //Turns the animation status back to false.
+            //Turns the animatior status back to false.
             animatorStatus = false;
         }
     }
@@ -79,8 +95,7 @@ public class PlayerInteract : MonoBehaviour
         //Checks if the object you are interacting with is null.
         if (interactionTarget != null)
         {
-            //Debug.Log("OnInteract");
-            //Runs the interact Function with the new parameter interaction target.
+            //Uses the current tool.
             playerTool.Interact(interactionTarget);
         }
     }
@@ -94,39 +109,37 @@ public class PlayerInteract : MonoBehaviour
         playerTool.StopInteract();
     }
     /// <summary>
-    /// A script used to pickup tools.
+    /// A function used to set current tools.
     /// </summary>
-    /// <param name="tool">- The tool to be picked up.</param>
+    /// <param name="tool">- The tool to be set.</param>
     public void SetPlayerTool(GameObject tool) 
     {
-        //Checks if the item is a tool.
+        //Checks if the current tool is not null.
         if(playerTool)
         {
-            //Destroys the physical object.
+            //Destroys the current tool physical object.
             Destroy(playerTool.gameObject);
         }
-        //- Checks if the script PlayerTool is on the tool.
+        //TO DO: enforce tool parameter argument for function.
+        //Checks if the new tool has the PlayerTool component. 
         if(tool.GetComponent<PlayerTool>() != null)
         {
             //Sets the tool's layer to default.
             tool.layer = 0;
-            //Sets playerTool to equal PlayerTool.
+            //Sets current tool to equal new tool.
             playerTool = tool.GetComponent<PlayerTool>();
             
-            //Debug.Log("pankake");
-            //tool.transform.position = gameObject.transform.position + playerTool.GetHandPosition();
-            //- Sets the tool to become a parent of the player.
+           //Sets the tool to become a child of the player.
             tool.transform.SetParent(gameObject.transform, false);
             //Turns the animator off.
             playerTool.DisableAnimator();
-            //Fetches the position that the tool will be in.
-            playerTool.GetHandPosition();
             //Sets the tool to the correct position.
-            playerTool.transform.localPosition = playerTool.GetHandPosition();
-            //Sets the tool to the corect rotation.
-            tool.transform.localRotation = Quaternion.Euler(playerTool.GetHandRotation());
+            playerTool.transform.localPosition = playerTool.GetToolPosition();
+            //Sets the tool to the correct rotation.
+            tool.transform.localRotation = Quaternion.Euler(playerTool.GetToolRotation());
             //Sets the tool to the correct scale.
-            tool.transform.localScale = playerTool.GetHandScale();
+            tool.transform.localScale = playerTool.GetToolScale();
+            //Sets the animation flag to true.
             //animatorStatus = true;
         }
 

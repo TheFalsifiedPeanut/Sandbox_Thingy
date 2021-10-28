@@ -2,71 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ToolType
-{
-    Axe = 0,
-    Pickaxe = 1,
-    Shovel = 2,
-    Flask = 3,
-    Gloves = 4,
-    Shears = 5
-}
-[System.Serializable]
-public struct ToolID
-{
-    [SerializeField]
-    int ID;
-    [SerializeField]
-    ToolType toolType;
-    public ToolID(int ID, ToolType toolType)
-    {
-        this.ID = ID;
-        this.toolType = toolType;
-    }
-
-    public int GetID()
-    {
-        return ID;
-    }
-    public ToolType GetToolType()
-    {
-        return toolType;
-    }
-}
 
 
 public class PlayerTool : Item
 {
-    // The amount of damage the tool will apply to the Harvestable.
+    #region Variables
+    /// <summary>
+    /// The amount of damage the tool will apply to the Harvestable.
+    /// </summary>
     [SerializeField] int toolDamage;
-    // The type of tool this is.
+    /// <summary>
+    /// The type of tool this is.
+    /// </summary>
     [SerializeField] HarvestingTool harvestingTool;
-    // The harvest level this tool is.
+    /// <summary>
+    /// The harvest level this tool is.
+    /// </summary>
     [SerializeField] HarvestingLevel harvestingLevel;
-    // The layer to check for when this tool collides with an object on Interactable layer.
+    /// <summary>
+    /// The layer to check for when this tool collides with an object on Interactable layer.
+    /// </summary>
     [SerializeField] LayerMask layer;
-    [SerializeField] float chopHeight;
-    private bool interacting;
-    [SerializeField] ToolID toolID;
-    [SerializeField] Vector3 handPosition;
-    [SerializeField] Vector3 handRotation;
-    [SerializeField] Vector3 handScale;
-    
-    public ToolID GetToolID()
+    /// <summary>
+    /// Decides which animation to use at height.
+    /// </summary>
+    [SerializeField] float actionHeight;
+    /// <summary>
+    /// A flag for when the tool is interacting.
+    /// </summary>
+    bool interacting;
+    #region Tool Positioning
+    /// <summary>
+    /// Where a Tool will be positioned when picked up.
+    /// </summary>
+    [SerializeField] Vector3 toolPosition;
+    /// <summary>
+    /// How a Tool will be rotated when picked up.
+    /// </summary>
+    [SerializeField] Vector3 toolRotation;
+    /// <summary>
+    /// How a Tool will be scaled when picked up.
+    /// </summary>
+    [SerializeField] Vector3 toolScale;
+    #endregion
+    #endregion
+
+    #region Getters
+    /// <summary>
+    /// Returns the type of tool.
+    /// </summary>
+    /// <returns>HarvestingTool</returns>
+    public HarvestingTool GetHarvestingTool()
     {
-        return toolID;
+        return harvestingTool;
     }
-    public Vector3 GetHandPosition()
+    #region ToolGetters
+    /// <summary>
+    /// Gets where the tool will be positioned.
+    /// </summary>
+    /// <returns>Tool Position.</returns>
+    public Vector3 GetToolPosition()
     {
-        return handPosition;
+        return toolPosition;
     }
-    public Vector3 GetHandRotation()
+    /// <summary>
+    /// Gets how the tool will be rotated.
+    /// </summary>
+    /// <returns>Tool Rotation.</returns>
+    public Vector3 GetToolRotation()
     {
-        return handRotation;
-    }public Vector3 GetHandScale()
-    {
-        return handScale;
+        return toolRotation;
     }
+    /// <summary>
+    /// Gets how the tool will be scaled.
+    /// </summary>
+    /// <returns>Tool Scale.</returns>
+    public Vector3 GetToolScale()
+    {
+        return toolScale;
+    }
+    #endregion
+    #endregion
+
 
     Collider toolCollider;
     Animator interactAnimation;
@@ -128,7 +145,7 @@ public class PlayerTool : Item
 
                 // Set the animation to be true.
                 interactAnimation.enabled = true;
-                if (harvestable.transform.position.y < chopHeight + transform.position.y - 1)
+                if (harvestable.transform.position.y < actionHeight + transform.position.y - 1)
                 {
 
                     interactAnimation.SetBool("DownChop", true);

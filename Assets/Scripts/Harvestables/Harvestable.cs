@@ -11,9 +11,9 @@ using UnityEngine;
     PICKAXE = 1,
     AXE = 2,
     SHOVEL = 4,
-    LIQUIDCONTAINER = 8,
-    HANDS = 16,
-    HOE = 32
+    FLASK = 8,
+    GLOVES = 16,
+    SHEARS = 32
 
 }
 
