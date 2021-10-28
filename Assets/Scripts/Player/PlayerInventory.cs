@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class that handes the player's inventory.
+/// </summary>
 public class PlayerInventory : MonoBehaviour
 {
     #region Old Code
@@ -213,72 +216,136 @@ public class PlayerInventory : MonoBehaviour
     //    return -1;
     //}
     #endregion
+    #region Variables
+    /// <summary>
+    /// -Holds an ID and its amount.
+    /// </summary>
     [SerializeField] Dictionary<int, int> inventory;
+    /// <summary>
+    /// Used to configure the UI.
+    /// </summary>
     [SerializeField] InventoryUI inventoryUI;
+    /// <summary>
+    /// A reference to the Crafting UI script.
+    /// </summary>
     [SerializeField] CraftingUI craftingUI;
+    /// <summary>
+    /// A reference to the crafting script.
+    /// </summary>
     [SerializeField] Crafting Crafting;
-    [SerializeField] int minimumToolID;
-    [SerializeField] int maximumToolID;
+    //[SerializeField] int minimumToolID;
+    //[SerializeField] int maximumToolID;
+    /// <summary>
+    /// A reference to the ToolBarUI script.
+    /// </summary>
     [SerializeField] ToolBarUI ToolBarUI;
-    [SerializeField] Item assignTools;
+    /// <summary>
+    /// 
+    /// </summary>
+    //[SerializeField] Item assignTools;
+    /// <summary>
+    /// A dictionary that contains a tool's type and ?ID
+    /// </summary>
     [SerializeField] Dictionary<ToolType, int> tools;
+    /// <summary>
+    /// A refererence to the play interact script.
+    /// </summary>
     [SerializeField] PlayerInteract playerInteract;
+    #endregion
 
+    /// <summary>
+    /// Goes through the Inventory and finds itemID and count.
+    /// </summary>
+    /// <returns>What's inside the inventory.</returns>
     public Dictionary<int, int> getInventory()
     {
         return inventory;
     }
 
-
+    /// <summary>
+    /// Adds Items to the inventory.
+    /// </summary>
+    /// <param name="item">-References an item that wants to enter the inventory</param>
+    /// <param name="count">The amount of an item</param>
+    /// <param name="silent">-A bool used to fetch craftable recipes</param>
     public void AddItem(Item item, int count, bool silent = false)
     {
+        //Checks if the item is null.
         if (item != null)
         {
+            //-Fetches the ID
             int ID = item.GetID();
+            //-asks if item is a tool.
             if (item.GetComponent<PlayerTool>())
             {
+                //-Measures ID against tools[item.GetComponent<PlayerTool>().GetToolID().GetToolType()] - what I assume to be the tool's ID
                 if (ID > tools[item.GetComponent<PlayerTool>().GetToolID().GetToolType()])
                 {
+                    //Adds the Tool to the ToolBarUI.
                     ToolBarUI.AddItem(ID, item.GetTexture());
+                    //Calls SetPlayerTool in PlayerInteract
                     playerInteract.SetPlayerTool(item.gameObject);
                     return;
                 }
-
+                
             }
+            //Checks if an instance of the object you wish to pick up already exists in the inventory.
             else if (!inventory.ContainsKey(ID))
             {
+                //Destroys the physical copy of the object.
                 Destroy(item.gameObject);
+                //Establishes a specific slot in the inventory to host specific item.
                 inventory.Add(ID, count);
+                //Adds the item to the inventory.
                 inventoryUI.AddItem(ID, count, item.GetTexture());
             }
+            //Triggers if an instance of an object that you with to pickup does exsist in the inventory.
             else
             {
+                //Destroys the physical copy of the object.
                 Destroy(item.gameObject);
+                //Adds the count of item to the existing stack.
                 inventory[ID] += count;
+                // -Adjust the number on the UI.
                 inventoryUI.ModifyAmount(inventory[ID], ID);
             }
             if (silent == false)
             {
+                //-Fetches craftable recipes. ||&& Triggers the GetCraftables function
                 craftingUI.SetRecipes(Crafting.GetCraftables());
             }
         }
     }
+    /// <summary>
+    /// Removes an item from the inventory.
+    /// </summary>
+    /// <param name="ID">ID of an Item</param>
+    /// <param name="count">Count of said Item</param>
+    /// <param name="silent">A bool</param>
     public void RemoveItem(int ID, int count, bool silent = false)
     {
+        //Asks if removing the item is possible
         if (CanRemoveItem(ID, count))
         {
+            //Lowers the count of item.
             inventory[ID] -= count;
+            //Triggers when there are less than zero of an item in the inventory.
             if (inventory[ID] <= 0)
             {
+                //Vacates the designated space for new items.
                 inventory.Remove(ID);
+                //Removes the UI.
                 inventoryUI.RemoveItem(ID);
             }
+            //Checks if an instance of the object you wish to pick up already exists in the inventory.
             if (inventory.ContainsKey(ID))
             {
+                //Modifies the UI to match the inventory.
                 inventoryUI.ModifyAmount(inventory[ID], ID);
             }
             if (silent == false)
             {
+                // -Fetches craftable recipes. ||&& Triggers the GetCraftables function
                 craftingUI.SetRecipes(Crafting.GetCraftables());
             }
         }
@@ -303,38 +370,66 @@ public class PlayerInventory : MonoBehaviour
         }
         return false;
     }
+    /// <summary>
+    /// Updates the available recipes to only items that you have portions of an item for.
+    /// </summary>
     public void UpdateRecipes()
     {
+        // -Fetches craftable recipes. ||&& Triggers the GetCraftables function
         craftingUI.SetRecipes(Crafting.GetCraftables());
     }
+    /// <summary>
+    /// A tool to check what's inside the inventory when the UI is unavailable.
+    /// </summary>
     public void DebugInventory()
     {
+        //Checks for when you hit the L key.
         if (Input.GetKeyDown(KeyCode.L))
         {
+            //Goes through each occupied space and remembers its name and count.
             foreach (KeyValuePair<int, int> keyValuePair in inventory)
             {
+                //prints each items name and count.
                 Debug.Log(keyValuePair);
             }
         }
+        //A tool to discard items from the inventory without crafting
+        //Checks for when you hit the F key.
         if (Input.GetKeyDown(KeyCode.F))
         {
+            //Removes an item.
             RemoveItem(1, 1);
         }
     }
+    //Runs through its contents every frame.
     private void Update()
     {
+        //Calls the DebugInventory script.
         DebugInventory();
     }
+    //Calls when the game starts.
     private void Start()
     {
+        //Initialize's inventory.
         inventory = new Dictionary<int, int>();
+        //Initialize's tools.
         tools = new Dictionary<ToolType, int>();
+        //Adds the tools
+        #region Adding tools
+        //Adds Tool of type Axe.
         tools.Add(ToolType.Axe, -1);
+        //Adds Tool of type Pickaxe.
         tools.Add(ToolType.Pickaxe, -1);
+        //Adds Tool of type Shovel.
         tools.Add(ToolType.Shovel, -1);
+        //Adds Tool of type Flask.
         tools.Add(ToolType.Flask, -1);
+        //Adds Tool of type Gloves.
         tools.Add(ToolType.Gloves, -1);
+        //Adds Tool of type Shears.
         tools.Add(ToolType.Shears, -1);
+        #endregion
+
         //AddItem(assignTools, 1, true);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// Class for handling crafting that works with the Inventory UI.
+/// Class for handling crafting that works with the inventoryUI.
 /// </summary>
 public class CraftingUI : MonoBehaviour
 {
