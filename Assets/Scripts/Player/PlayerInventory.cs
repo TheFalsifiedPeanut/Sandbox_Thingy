@@ -272,11 +272,12 @@ public class PlayerInventory : MonoBehaviour
             //Checks if item is a tool.
             if (item.GetComponent<PlayerTool>())
             {
+                PlayerTool playerTool = item.GetComponent<PlayerTool>();
                 //Checks if the ID of added Tool is greater than the current ID of the same tool type.
-                if (ID > tools[item.GetComponent<PlayerTool>().GetHarvestingTool()])
+                if (ID > tools[playerTool.GetHarvestingTool()])
                 {
                     //Adds the Tool to the ToolBarUI.
-                    ToolBarUI.AddItem(ID, item.GetTexture());
+                    ToolBarUI.AddItem(playerTool);
                     //Adds item as a player tool.
                     playerInteract.SetPlayerTool(item.gameObject);
                     return;

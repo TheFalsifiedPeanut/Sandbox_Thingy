@@ -2,22 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class that handles weighted loot generation.
+/// </summary>
 [System.Serializable]
 public class Table
 {
-    // Weight handles the likeliness of a entry being selected. NumberOfRolls handle the amount of times to select from the pool.
-    [SerializeField] int weight, numberOfRolls;
-    // Entries that will be rolled for, respecting weights.
+    #region Variables
+    /// <summary>
+    /// Weight handles the likeliness of this table being selected.
+    /// </summary>
+    [SerializeField] int weight;
+    /// <summary>
+    /// NumberOfRolls handle the amount of times to select from the pool.
+    /// </summary>
+    [SerializeField] int numberOfRolls;
+    /// <summary>
+    /// Entries that will be rolled for, respecting weights.
+    /// </summary>
     [SerializeField] List<TableEntry> randomEntries;
-    // Entries that will happen regardless.
+    /// <summary>
+    /// Entries that are guaranteed to drop.
+    /// </summary>
     [SerializeField] List<TableEntry> guaranteedEntries;
-
-    int id;
-    // A pool for all the entries.
+    /// <summary>
+    /// The ID of the table.
+    /// </summary>
+    int tableID;
+    /// <summary>
+    /// A list that contains each random entry's ID duplicated by the entries weight.
+    /// </summary>
     List<int> entryTokens;
 
+
+    #endregion
+
+    #region Getters
     /// <summary>
-    /// Get the weight.
+    /// Gets the weight.
     /// </summary>
     /// <returns> Returns the weight. </returns>
     public int GetWeight()
@@ -26,75 +48,90 @@ public class Table
     }
 
     /// <summary>
-    /// Get the ID.
+    /// Gets the ID.
     /// </summary>
     /// <returns> Returns the ID. </returns>
     public int GetID()
     {
-        return id;
+        return tableID;
     }
+    #endregion
 
+    #region Setters
     /// <summary>
     /// Sets the ID to the specified value.
     /// </summary>
     /// <param name="id"> The value to set. </param>
     public void SetID(int id)
     {
-        this.id = id;
+        this.tableID = id;
     }
+    #endregion
+
+
 
     /// <summary>
     /// Initialise the loot table.
     /// </summary>
     public void Initialise()
     {
+        //Initializes entryTokens.
         entryTokens = new List<int>();
-
+        //Loops through each entry.
         for (int i = 0; i < randomEntries.Count; i++)
         {
-            // Set the ID of the entry.
+            // Sets the ID of the entry.
             randomEntries[i].SetID(i);
 
-            // For the weight of the entry, add a token to the pool.
+            //Loops fore the value of weight.
             for (int j = 0; j < randomEntries[i].GetWeight(); j++)
             {
+                //Adds a token to the pool.
                 entryTokens.Add(randomEntries[i].GetID());
             }
         }
     }
-
+    /// <summary>
+    /// A function used to calculate what an object drops.
+    /// </summary>
+    /// <returns>What Items will be dropped: Results.</returns>
     public List<TableEntry> GetTableEntries()
     {
+        //Initializes the results, making sure to include the guaranteed entries.
         List<TableEntry> results = guaranteedEntries;
-        // Get the number of times to roll for entries.
+        // Ensures the number of rolls is no more than the number of entries.
         int rollCount = numberOfRolls >= randomEntries.Count ? randomEntries.Count : numberOfRolls;
         
-        // For the number of rolls, select token from pool.
+        // Loops for the value of rollCount
         for (int i = 0; i < rollCount; i++)
         {
-            // Get a random value for indexing the pool.
-            Debug.Log(entryTokens);
+            // Assigns a value between 0 and entryToken's value to randomIndex.
             int randomIndex = Random.Range(0, entryTokens.Count);
-            // Get the ID of a random entry.
+            // Gets the ID of a random entry.
             int randomID = entryTokens[randomIndex];
-
+            //Loops through randomEntries.
             for (int j = 0; j < randomEntries.Count; j++)
             {
+                //Checks if randomEntries contains randomID.
                 if (randomEntries[j].GetID() == randomID)
                 {
+                    //Adds the outcome of randomEntries to results.
                     results.Add(randomEntries[j]);
+                    //Resets removeIndex.
                     int removeIndex = 0;
-
+                    //Loops for the value of entryTokens.
                     for (int k = 0; k < entryTokens.Count; k++)
                     {
+                        //Checks if randomID is equal to entryTokens[k].
                         if(randomID == entryTokens[k])
                         {
+                            //Sets removeIndex to entryTokens[k].
                             removeIndex = k;
 
                             break;
                         }
                     }
-
+                    //Removes already called outcomes to prevent re-rolls.
                     entryTokens.RemoveRange(removeIndex, randomEntries[j].GetWeight());
                 }
             }

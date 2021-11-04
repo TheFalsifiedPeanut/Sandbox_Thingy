@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// A class that modifies drops.
+/// </summary>
 public class RadiusHarvestable : Harvestable
 {
+    /// <summary>
+    /// Radius where dropped items could spawn.
+    /// </summary>
     [SerializeField] protected float harvestSpawnRadius;
 
     /// <summary>
@@ -12,9 +17,13 @@ public class RadiusHarvestable : Harvestable
     /// <param name="harvest"> The harvest to spawn. </param>
     protected override void SpawnHarvest(GameObject harvest)
     {
-        // Spawn in a radius around the harvest position.
+        // Gets a random rotation for items and spawn them.
+        int randomDirection = Random.Range(0, 360);
+        //Finds a position for the items to spawn in the spawn radius.
         Vector3 spawnPoint = transform.position + Random.insideUnitSphere * harvestSpawnRadius;
-        spawnPoint.y = 1;
-        Instantiate(harvest, spawnPoint, Quaternion.identity);
+        //Sets height of spawned objects.
+        spawnPoint.y = 5;
+        //Creates new loot.
+        Instantiate(harvest, spawnPoint, Quaternion.Euler(0, randomDirection, 90));
     }
 }

@@ -26,16 +26,34 @@ public enum HarvestingLevel
     BRONZETOOL = 1,
     IRONTOOL = 2
 }
-
+/// <summary>
+/// Base class for all harvestable objects in the world.
+/// </summary>
 public class Harvestable : MonoBehaviour
 {
+    #region Variables
+    /// <summary>
+    /// Health of an object.
+    /// </summary>
     [SerializeField] protected int health;
+    /// <summary>
+    /// Required harvesting tool. NOTE: Flag.
+    /// </summary>
     [SerializeField] protected HarvestingTool harvestingTool;
+    /// <summary>
+    /// Required harvesting level.
+    /// </summary>
     [SerializeField] protected HarvestingLevel harvestingLevel;
+    /// <summary>
+    /// A reference to the LootTables script.
+    /// </summary>
     [SerializeField] protected LootTables lootTables;
+    #endregion
 
+    //Region for handling health.
     #region Health
 
+    #region Getters
     /// <summary>
     /// Get the current health of the harvestable.
     /// </summary>
@@ -44,8 +62,10 @@ public class Harvestable : MonoBehaviour
     {
         return health;
     }
+    #endregion
 
-    /// <summary>
+    #region Setters
+     /// <summary>
     /// Set the health of the harvestable.
     /// </summary>
     /// <param name="health"> The health value to set. </param>
@@ -53,6 +73,9 @@ public class Harvestable : MonoBehaviour
     {
         this.health = health;
     }
+    #endregion
+
+   
 
     /// <summary>
     /// Removes health from the harvestable by a specified amount.
@@ -62,10 +85,7 @@ public class Harvestable : MonoBehaviour
     /// <param name="harvestingLevel"> The level of the tool used. </param>
     public virtual void RemoveHealth(int amount, HarvestingTool harvestingTool, HarvestingLevel harvestingLevel)
     {
-        Debug.Log("Health Lowered!");
         // Check if the correct tool is being used. It's designed so some tools can be used in multiple ways and that some resources can be harvest by different tools.
-        Debug.Log(harvestingTool);
-        Debug.Log(this.harvestingTool);
         if (this.harvestingTool.HasFlag(harvestingTool))
         {
             // Check if the tool level used is high enough.
@@ -73,6 +93,7 @@ public class Harvestable : MonoBehaviour
             {
                 // Take health and call the OnHarvest.
                 health -= amount;
+                //Calls the OnHarvest function
                 OnHarvest();
             }
         }
@@ -80,7 +101,7 @@ public class Harvestable : MonoBehaviour
 
     #endregion
 
-    #region Tool
+    #region ToolGetters
 
     /// <summary>
     /// Get the harvesting tool required.
@@ -105,8 +126,7 @@ public class Harvestable : MonoBehaviour
     protected virtual void Start()
     {
         // Initialise the loot tables.
-        Debug.Log(gameObject.name);
-        lootTables.Initialise(gameObject);
+        lootTables.Initialise();
     }
 
     #region Harvesting
@@ -116,8 +136,10 @@ public class Harvestable : MonoBehaviour
     /// </summary>
     public virtual void OnHarvest()
     {
+        //Checks if health is less than 0.
         if (health <= 0)
         {
+            //Calls OnHarvested,
             OnHarvested();
         }
     }
@@ -133,12 +155,14 @@ public class Harvestable : MonoBehaviour
         // Follow the spawn instructions.
         for (int i = 0; i < spawnInstuctions.Count; i++)
         {
+            //Looping through the count of instuction.
             for (int j = 0; j < spawnInstuctions[i].GetCount(); j++)
             {
+                //Calls function used for spawning loot.
                 SpawnHarvest(spawnInstuctions[i].GetSpawnObject());
             }
         }
-        
+        //Destroys the physical object.
         Destroy(gameObject);
     }
 
@@ -148,6 +172,7 @@ public class Harvestable : MonoBehaviour
     /// <param name="harvest"> The harvest to spawn. </param>
     protected virtual void SpawnHarvest(GameObject harvest)
     {
+        //Spawns loot.
         Instantiate(harvest, transform.position, Quaternion.identity);
     }
 

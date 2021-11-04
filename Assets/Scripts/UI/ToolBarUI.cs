@@ -7,32 +7,28 @@ public class ToolBarUI : MonoBehaviour
     [SerializeField] GameObject inventoryParent;
     [SerializeField] GameObject[] UISlots;
     [SerializeField] GameObject UIItem;
-    [SerializeField] ToolID[] toolIDs;
     UIItemElement[] UIItemElements;
-    Dictionary<ToolType, UIItemElement> UISlotState;
+    Dictionary<HarvestingTool, UIItemElement> UISlotState;
+    Dictionary<int, HarvestingTool> Tools;
 
     void Awake()
     {
         UIItemElements = new UIItemElement[UISlots.Length];
-        UISlotState = new Dictionary<ToolType, UIItemElement>();
-        UISlotState.Add(ToolType.Pickaxe, new UIItemElement());
-        UISlotState.Add(ToolType.Shovel, new UIItemElement());
-        UISlotState.Add(ToolType.Shears, new UIItemElement());
-        UISlotState.Add(ToolType.Gloves, new UIItemElement());
-        UISlotState.Add(ToolType.Flask, new UIItemElement());
-        UISlotState.Add(ToolType.Axe, new UIItemElement());
+        UISlotState = new Dictionary<HarvestingTool, UIItemElement>();
+        UISlotState.Add(HarvestingTool.PICKAXE, new UIItemElement());
+        UISlotState.Add(HarvestingTool.SHOVEL, new UIItemElement());
+        UISlotState.Add(HarvestingTool.SHEARS, new UIItemElement());
+        UISlotState.Add(HarvestingTool.GLOVES, new UIItemElement());
+        UISlotState.Add(HarvestingTool.FLASK, new UIItemElement());
+        UISlotState.Add(HarvestingTool.AXE, new UIItemElement());
     }
-    public void AddItem(int ID, Texture2D texture)
+    public void AddItem(PlayerTool playerTool)
     {
-        for (int j = 0; j < toolIDs.Length; j++)
-        {
-            if (ID == toolIDs[j].GetID())
-            {
-                GameObject NewItem = Instantiate(UIItem, UISlots[(int)toolIDs[j].GetToolType()].transform);
-                Destroy(UISlotState[toolIDs[j].GetToolType()].GetItem());
-                NewItem.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one);
-                UISlotState[toolIDs[j].GetToolType()] = new UIItemElement(true, ID, NewItem);
-            }
-        }
+        HarvestingTool harvestingTool = playerTool.GetHarvestingTool();
+        GameObject newToolUI = Instantiate(UIItem, UISlots[(int)harvestingTool].transform);
+        Destroy(UISlotState[harvestingTool].GetItem());
+        Texture2D toolTexture = playerTool.GetTexture();
+        newToolUI.GetComponent<Image>().sprite = Sprite.Create(toolTexture, new Rect(0, 0, toolTexture.width, toolTexture.height), Vector2.one);
+        UISlotState[harvestingTool] = new UIItemElement(true, playerTool.GetID(), newToolUI);
     }
 }

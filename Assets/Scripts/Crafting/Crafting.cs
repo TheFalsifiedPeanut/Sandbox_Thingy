@@ -30,7 +30,7 @@ public struct RecipeItem
         return Count;
     }
     #endregion
-
+    ///
     public RecipeItem(int ID, int Count)
     {
         this.ID = ID;
